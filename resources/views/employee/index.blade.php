@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('contents')
-<h1> Tareq editted </h1>
+<h1> Tareq</h1>
 @endsection
