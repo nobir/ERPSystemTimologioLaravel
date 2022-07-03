@@ -13,7 +13,7 @@ class Station extends Model
 {
     use HasFactory;
 
-    public function manager()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
