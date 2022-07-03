@@ -4,8 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-class StationFactory extends Factory
+class CategoryInvoiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,11 +13,11 @@ class StationFactory extends Factory
      */
     public function definition()
     {
+        // 'category_id'
+        // 'invoice_id'
         return [
-            'name' => $this->faker->name,
-            'type' => random_int(0, 2),
-            'user_id' => random_int(1, 100),
-            'address_id' => random_int(101, 200),
+            'category_id' => $this->faker->numberBetween(1, 50),
+            'invoice_id' => $this->faker->numberBetween(1, 2000),
         ];
     }
 }

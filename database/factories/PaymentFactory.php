@@ -4,8 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-
-class StationFactory extends Factory
+class PaymentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +14,10 @@ class StationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'type' => random_int(0, 2),
+            'issue_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'receive_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'bonus' => $this->faker->randomFloat(2, 0, 100),
             'user_id' => random_int(1, 100),
-            'address_id' => random_int(101, 200),
         ];
     }
 }
