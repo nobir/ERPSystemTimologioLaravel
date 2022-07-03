@@ -13,11 +13,6 @@ class AddressFactory extends Factory
      */
     public function definition()
     {
-        // 'local_address'
-        // 'police_station'
-        // 'city'
-        // 'country'
-        // 'zip_code'
         return [
             'local_address' => $this->faker->address,
             'police_station' => $this->faker->name,
