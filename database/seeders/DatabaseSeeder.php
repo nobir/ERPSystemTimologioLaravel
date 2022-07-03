@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            AddressSeeder::class,
+            CategorySeeder::class,
+            CustomerSeeder::class,
+            UserSeeder::class,
+            StationSeeder::class,
+            // InventorySeeder::class,
+            // InvoiceSeeder::class,
+            // PaymentSeeder::class,
+            // VacationDetailSeeder::class,
+            // WorkingHourSeeder::class,
+            // WorkPostSeeder::class,
+            // CategoryInvoiceSeeder::class
+        ]);
     }
 }
