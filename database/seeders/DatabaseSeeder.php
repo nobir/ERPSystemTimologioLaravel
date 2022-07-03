@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             UserSeeder::class,
             StationSeeder::class,
-            // InventorySeeder::class,
-            // InvoiceSeeder::class,
-            // PaymentSeeder::class,
-            // VacationDetailSeeder::class,
-            // WorkingHourSeeder::class,
-            // WorkPostSeeder::class,
-            // CategoryInvoiceSeeder::class
+            InventorySeeder::class,
+            InvoiceSeeder::class,
+            PaymentSeeder::class,
+            VacationDetailSeeder::class,
+            WorkingHourSeeder::class,
+            WorkPostSeeder::class,
+            CategoryInvoiceSeeder::class
         ]);
     }
 }

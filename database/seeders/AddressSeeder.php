@@ -14,6 +14,6 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        Address::factory()->count(100)->create();
+        Address::factory()->count(200)->create();
     }
 }

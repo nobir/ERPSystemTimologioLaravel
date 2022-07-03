@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Category;
 
-class CategorySeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +13,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::factory()->count(50)->create();
+        //
     }
 }
