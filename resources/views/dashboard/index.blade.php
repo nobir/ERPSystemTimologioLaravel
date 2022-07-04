@@ -2,10 +2,10 @@
     $page_title = "Dashboard";
 @endphp
 
-@extends('layouts.dashboard')
+@extends('layouts.main')
 
 @section('contents')
 
-<p>Welcome {{ Session::get('name') }}</p>
+<h1>Welcome {{ Session::get('user')->name }}</h1>
 
 @endsection
