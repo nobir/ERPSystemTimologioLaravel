@@ -8,11 +8,12 @@ use App\Models\Address;
 use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Category;
+use App\Models\Station;
 
 class TestController extends Controller
 {
     public function index()
     {
-        return User::find(1)->address;
+        return Invoice::find(23)->categories;
     }
 }
