@@ -17,7 +17,7 @@ class CreateWorkingHoursTable extends Migration
             $table->id();
             $table->date('date')->nullable(false);
             $table->time('entry_time')->nullable(false);
-            $table->time('exit_time')->nullable(false);
+            $table->time('exit_time')->default(null)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
