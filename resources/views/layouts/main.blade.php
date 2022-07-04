@@ -20,7 +20,7 @@
                 {{-- <a href="{{ route('home.index') }}" class="navbar-brand-md h2 text-decoration-none text-white">Logo</a> --}}
                 @if (Session::has('loggedin') && Session::has('name'))
                     <div>
-                        <span class="text-white fs-6">Logged in as <a href="" class="list-group-item d-inline text-dark rounded p-1">{{ ucfirst(strtok(Session::get('name'), ' ')) }}</a></span>
+                        <span class="text-white fs-6">Logged in as <a href="" class="list-group-item d-inline text-dark rounded p-1">{{ ucfirst(strtok(Session::get('user')->name, ' ')) }}</a></span>
                     </div>
                 @endif
             </div>
@@ -39,7 +39,7 @@
         <hr>
 
         @if (Session::has('error_message') && Session::get('error_message') != '')
-            <div class="col-12 col-md-8 col-lg-7">
+            <div class="col-12">
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
                     <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
                     <div>
@@ -50,7 +50,7 @@
         @endif
 
         @if (Session::has('success_message') && Session::get('success_message') != '')
-            <div class="col-12 col-md-8 col-lg-7">
+            <div class="col-12">
                 <div class="alert alert-success d-flex align-items-center" role="alert">
                     <i class="bi bi-check-circle-fill flex-shrink-0 me-2"></i>
                     <div>
