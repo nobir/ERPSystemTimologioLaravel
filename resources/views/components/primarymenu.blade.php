@@ -3,7 +3,7 @@
 $login_primary_menus = [
     [
         'title' => 'Dashboard',
-        'path' => '',
+        'path' => route('dashboard.index'),
     ],
     [
         'title' => 'View Profile',
