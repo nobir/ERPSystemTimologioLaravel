@@ -2,7 +2,7 @@
     $page_title = "Manager";
 @endphp
 
-@extends('layouts.dashboard')
+@extends('layouts.main')
 
 @section('contents')
 
