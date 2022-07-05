@@ -16,13 +16,13 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('invoice_add')->default(0)->nullable(false);
-            $table->unsignedInteger('InvoiceManage')->default(0)->nullable(false);
-            $table->unsignedInteger('InventoryManage')->default(0)->nullable(false);
-            $table->unsignedInteger('CategoryManage')->default(0)->nullable(false);
-            $table->unsignedInteger('StationManage')->default(0)->nullable(false);
-            $table->unsignedInteger('OperationManage')->default(0)->nullable(false);
-            $table->unsignedInteger('UserManage')->default(0)->nullable(false);
-            $table->unsignedInteger('PermissionMange')->default(0)->nullable(false);
+            $table->unsignedInteger('invoice_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('inventory_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('category_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('station_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('operation_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('user_manage')->default(0)->nullable(false);
+            $table->unsignedInteger('permission_mange')->default(0)->nullable(false);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

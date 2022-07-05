@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             InventorySeeder::class,
             InvoiceSeeder::class,
             PaymentSeeder::class,
+            PermissionSeeder::class,
             VacationDetailSeeder::class,
             WorkingHourSeeder::class,
             WorkPostSeeder::class,
