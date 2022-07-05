@@ -14,6 +14,6 @@ class CategoryInvoiceSeeder extends Seeder
      */
     public function run()
     {
-        CategoryInvoice::factory()->count(5000)->create();
+        CategoryInvoice::factory()->count(1000)->create();
     }
 }
