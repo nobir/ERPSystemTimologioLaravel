@@ -39,6 +39,6 @@ class CreateCategoryInvoiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_invoices');
+        Schema::dropIfExists('category_invoice');
     }
 }
