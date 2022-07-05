@@ -60,7 +60,7 @@
             </div>
         @endif
 
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center">
             @if (Session::has('loggedin'))
                 <div class="col-12 col-md-3">
                     @include('components.sidemenu')
