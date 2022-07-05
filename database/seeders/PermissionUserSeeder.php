@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Permission;
+use App\Models\PermissionUser;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class PermissionUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        Permission::factory()->count(50)->create();
+        PermissionUser::factory()->count(1000)->create();
     }
 }

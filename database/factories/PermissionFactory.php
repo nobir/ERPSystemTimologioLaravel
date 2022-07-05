@@ -22,7 +22,6 @@ class PermissionFactory extends Factory
             'operation_manage' => random_int(0, 1),
             'user_manage' => random_int(0, 1),
             'permission_mange' => random_int(0, 1),
-            'user_id' => random_int(1, 100),
         ];
     }
 }

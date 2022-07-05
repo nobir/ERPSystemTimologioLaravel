@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             VacationDetailSeeder::class,
             WorkingHourSeeder::class,
             WorkPostSeeder::class,
-            CategoryInvoiceSeeder::class
+            CategoryInvoiceSeeder::class,
+            PermissionUserSeeder::class
         ]);
     }
 }

@@ -23,15 +23,7 @@ class CreatePermissionsTable extends Migration
             $table->unsignedInteger('operation_manage')->default(0)->nullable(false);
             $table->unsignedInteger('user_manage')->default(0)->nullable(false);
             $table->unsignedInteger('permission_mange')->default(0)->nullable(false);
-            $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
         });
     }
 
