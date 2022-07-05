@@ -52,6 +52,8 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
+        $user->status = 1;
+
         $request->session()->put('user', $user);
         $request->session()->put('loggedin', true);
 
@@ -68,6 +70,8 @@ class HomeController extends Controller
 
     public function logout(Request $request)
     {
+        User::where('user_id', $request->session()->get('user')->id)
+            ->update(['status' => 0]);
         WorkingHour::where('user_id', $request->session()->get('user')->id)
             ->where('exit_time', null)
             ->update(['exit_time' => now()]);
