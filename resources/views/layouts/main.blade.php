@@ -40,7 +40,7 @@
         @if (Session::has('error_message') && Session::get('error_message') != '')
             <div class="col-12">
                 <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
+                    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mr-2"></i>
                     <div>
                         <strong>{{ Session::get('error_message') }}</strong>
                     </div>
@@ -51,7 +51,7 @@
         @if (Session::has('success_message') && Session::get('success_message') != '')
             <div class="col-12">
                 <div class="alert alert-success d-flex align-items-center" role="alert">
-                    <i class="bi bi-check-circle-fill flex-shrink-0 me-2"></i>
+                    <i class="bi bi-check-circle-fill flex-shrink-0 mr-2"></i>
                     <div>
                         <strong>{{ Session::get('success_message') }}</strong>
                     </div>
