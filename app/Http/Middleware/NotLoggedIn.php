@@ -20,6 +20,6 @@ class NotLoggedIn
             return $next($request);
         }
 
-        return redirect()->route('home.about');
+        return redirect()->route('dashboard.index');
     }
 }
