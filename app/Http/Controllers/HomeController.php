@@ -70,7 +70,7 @@ class HomeController extends Controller
 
     public function logout(Request $request)
     {
-        User::where('user_id', $request->session()->get('user')->id)
+        User::where('id', $request->session()->get('user')->id)
             ->update(['status' => 0]);
         WorkingHour::where('user_id', $request->session()->get('user')->id)
             ->where('exit_time', null)
