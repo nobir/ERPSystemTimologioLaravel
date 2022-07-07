@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('verified')->default(0)->nullable(false);
+            $table->integer('verify_email')->default(-1)->nullable(false);
             $table->string('username')->unique()->nullable(false);
             $table->integer('type')->default(-1)->nullable(false);
             $table->unsignedInteger('status')->default(0)->nullable(false);
@@ -25,11 +26,18 @@ class CreateUsersTable extends Migration
             $table->unsignedDouble('salary')->nullable();
             $table->dateTime('hire_date')->nullable();
             $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('station_id');
             $table->timestamps();
 
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreign('station_id')
+                ->references('id')
+                ->on('stations')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });

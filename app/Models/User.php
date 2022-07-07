@@ -23,9 +23,9 @@ class User extends Model
 
 
 
-    public function stations()
+    public function station()
     {
-        return $this->hasMany(Station::class);
+        return $this->belongsTo(Station::class);
     }
 
     public function payments()

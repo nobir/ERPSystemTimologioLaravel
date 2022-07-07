@@ -17,15 +17,9 @@ class CreateStationsTable extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->integer('type')->nullable(false);
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('address_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')

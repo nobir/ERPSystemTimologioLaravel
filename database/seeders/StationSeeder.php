@@ -14,6 +14,6 @@ class StationSeeder extends Seeder
      */
     public function run()
     {
-        Station::factory()->count(100)->create();
+        Station::factory()->count(10)->create();
     }
 }

@@ -17,8 +17,7 @@ class StationFactory extends Factory
         return [
             'name' => $this->faker->name,
             'type' => random_int(0, 2),
-            'user_id' => random_int(1, 100),
-            'address_id' => random_int(101, 200),
+            'address_id' => $this->faker->unique()->numberBetween(1, 100),
         ];
     }
 }

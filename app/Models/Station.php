@@ -13,9 +13,9 @@ class Station extends Model
 {
     use HasFactory;
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function address()
