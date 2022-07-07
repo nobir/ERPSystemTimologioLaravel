@@ -17,10 +17,9 @@
         <div class="row">
             <div class="col-12 col-md-3 text-center text-md-start">
                 <a href="{{ route('home.index') }}" class="navbar-brand-md h2 text-decoration-none text-white"><i class="bi bi-life-preserver text-white display-5"></i></a>
-                {{-- <a href="{{ route('home.index') }}" class="navbar-brand-md h2 text-decoration-none text-white">Logo</a> --}}
-                @if (Session::has('loggedin') && Session::has('name'))
+                @if (Session::has('loggedin') && Session::has('user'))
                     <div>
-                        <span class="text-white fs-6">Logged in as <a href="" class="list-group-item d-inline text-dark rounded p-1">{{ ucfirst(strtok(Session::get('user')->name, ' ')) }}</a></span>
+                        <span class="text-white fs-6">Logged in <a href="" class="badge badge-danger">{{ Session::get('user')->username }}</a> as {{ Session::get('user')->type == 0 ? "System Admin" : (Session::get('user')->type == 1 ? "CEO" : (Session::get('user')->type == 2 ? "Manager" : (Session::get('user')->type == 3 ? "Employee" : (Session::get('user')->type == 4 ? "Receptionist" : "")))) }}</span>
                     </div>
                 @endif
             </div>
