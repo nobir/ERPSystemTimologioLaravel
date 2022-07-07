@@ -15,7 +15,7 @@ class InvoiceFactory extends Factory
     {
         return [
             'date' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'station_id' => random_int(1, 100),
+            'station_id' => random_int(1, 10),
             'customer_id' => random_int(1, 2000),
             'user_id' => random_int(1, 100),
         ];
