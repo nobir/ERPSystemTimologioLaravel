@@ -14,7 +14,7 @@ class PermissionUserFactory extends Factory
     public function definition()
     {
         return [
-            'permission_id' => $this->faker->numberBetween(1, 50),
+            'permission_id' => $this->faker->numberBetween(1, 6),
             'user_id' => $this->faker->numberBetween(1, 100),
         ];
     }

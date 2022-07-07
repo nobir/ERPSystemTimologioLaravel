@@ -14,6 +14,6 @@ class PermissionUserSeeder extends Seeder
      */
     public function run()
     {
-        PermissionUser::factory()->count(1000)->create();
+        PermissionUser::factory()->count(100)->create();
     }
 }

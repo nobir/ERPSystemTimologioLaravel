@@ -14,6 +14,7 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
+            'name' => $this->faker->unique()->word,
             'invoice_add' => random_int(0, 1),
             'invoice_manage' => random_int(0, 1),
             'inventory_manage' => random_int(0, 1),

@@ -15,6 +15,7 @@ class CreatePermissionsTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(false);
             $table->unsignedInteger('invoice_add')->default(0)->nullable(false);
             $table->unsignedInteger('invoice_manage')->default(0)->nullable(false);
             $table->unsignedInteger('inventory_manage')->default(0)->nullable(false);
