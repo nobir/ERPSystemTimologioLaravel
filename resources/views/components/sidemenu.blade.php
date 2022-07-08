@@ -2,16 +2,20 @@
 
 $admin_menus = [
     [
-        'title' => 'Verify Doctor',
-        'path' => 'users/admin/verify-doctor.php',
+        'title' => 'Verify Users',
+        'path' => route('admin.unverifiedUsers'),
     ],
     [
         'title' => 'View Users',
-        'path' => 'users/admin/view-users.php',
+        'path' => route('admin.viewUsers'),
     ],
     [
         'title' => 'Add User',
-        'path' => 'users/admin/add-user.php',
+        'path' => route('admin.createUser'),
+    ],
+    [
+        'title' => 'Send Email Verification Link',
+        'path' => route('admin.sendEmailVerifyLink'),
     ],
 ];
 $manager_menus = [];

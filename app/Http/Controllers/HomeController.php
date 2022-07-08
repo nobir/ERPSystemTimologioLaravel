@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\WorkingHour;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -45,7 +45,14 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
-        $password_check = Hash::check($request->password, $user->password);
+        $verify_email_check = $user->verify_email == 0 ? true : false;
+
+        if (!$verify_email_check) {
+            $request->session()->flash('error_message', 'Your must verify your email first');
+            return redirect()->back();
+        }
+
+        $password_check = Crypt::decrypt($user->password) == $request->password ? true : false;
 
         if (!$password_check) {
             $request->session()->flash('error_message', 'Invalid email or password');
@@ -77,6 +84,29 @@ class HomeController extends Controller
             ->update(['exit_time' => now()]);
 
         $request->session()->flush();
+
+        return redirect()->route('home.login');
+    }
+
+    public function emailVerify(Request $request, $user_id, $code)
+    {
+        $user = User::find($user_id);
+        // return var_dump($code);
+
+        if(!$user || $user->verify_email != $code) {
+            $request->session()->flash('error_message', 'Invalid verification link');
+            return redirect()->route('home.login');
+        }
+
+        if($user->verify_email === 0 ) {
+            $request->session()->flash('error_message', 'Your account is already verified');
+            return redirect()->route('home.login');
+        }
+
+        $user->verify_email = 0;
+        $user->update();
+
+        $request->session()->flash('success_message', "$user->email verified successfully.");
 
         return redirect()->route('home.login');
     }
