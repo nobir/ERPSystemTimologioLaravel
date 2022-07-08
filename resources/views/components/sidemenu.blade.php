@@ -3,7 +3,7 @@
 $admin_menus = [
     [
         'title' => 'Verify Users',
-        'path' => route('admin.unverifiedUsers'),
+        'path' => route('admin.viewUnverifiedUsers'),
     ],
     [
         'title' => 'View Users',
