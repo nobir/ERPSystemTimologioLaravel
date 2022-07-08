@@ -1,5 +1,5 @@
 @php
-$page_title = 'Create Permission';
+$page_title = 'Create User';
 @endphp
 
 @extends('layouts.main')
@@ -118,7 +118,8 @@ $page_title = 'Create Permission';
                     name="station_id">
                     <option value="">None</option>
                     @foreach ($stations as $station)
-                        <option value="{{ $station->id }}"{{ old('station_id') && old('station_id') == $station->id ? ' selected' : '' }}>
+                        <option
+                            value="{{ $station->id }}"{{ old('station_id') && old('station_id') == $station->id ? ' selected' : '' }}>
                             {{ $station->name }}</option>
                     @endforeach
                 </select>
@@ -131,21 +132,35 @@ $page_title = 'Create Permission';
         </div>
         <div class="row mb-3 has-validation">
             <label for="permission_id" class="col-sm-3 col-form-label">Permission</label>
-            <div class="col-sm-9">
-                <select id="permission_id"
-                    class="@error('permission_id') is-invalid @enderror form-control {{ old('permission_id') && !$errors->first('permission_id') ? 'is-valid' : '' }}"
-                    name="permission_id">
-                    <option value="">None</option>
-                    @foreach ($permissions as $permission)
-                        <option value="{{ $permission->id }}"{{ old('permission_id') && old('permission_id') == $permission->id ? ' selected' : '' }}>
-                            {{ $permission->name }}</option>
-                    @endforeach
-                </select>
+            <div class="col-sm-7">
+                <div id="permissions" class="row">
+                    <div class="col-sm-8 mb-2">
+                        <select id="permission_id"
+                            class="@error('permission_id') is-invalid @enderror form-control {{ old('permission_id') && !$errors->first('permission_id') ? 'is-valid' : '' }}"
+                            name="permission_ids[]">
+                            <option value="">None</option>
+                            @foreach ($permissions as $permission)
+                                <option
+                                    value="{{ $permission->id }}"{{ old('permission_id') && old('permission_id') == $permission->id ? ' selected' : '' }}>
+                                    {{ $permission->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- <div class="col-sm-4 mb-2 d-none" id="remove-btn-container">
+                        <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
+                            <i class="bi bi-dash-circle mr-2"></i>Remove
+                        </a>
+                    </div> --}}
+                </div>
                 @error('permission_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+            <div class="col-sm-2">
+                <a id="permission-add-btn" href="#" class="btn btn-info"><i
+                        class="bi bi-plus-circle mr-2"></i>Add</a>
             </div>
         </div>
         <div class="row mb-3 has-validation">

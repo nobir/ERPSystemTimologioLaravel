@@ -88,7 +88,7 @@ class AdminController extends Controller
                 'type' => 'required|numeric|min:0|max:4',
                 'salary' => 'required|numeric|min:0',
                 'station_id' => 'required|numeric|exists:stations,id',
-                'permission_id' => 'required|numeric|exists:permissions,id',
+                'permission_ids' => 'required|array|exists:permissions,id',
             ]
         );
 
@@ -99,6 +99,14 @@ class AdminController extends Controller
         if (!$station) {
             $request->session()->flash('error_message', 'Station not found.');
             return redirect()->back();
+        }
+
+        foreach ($request->permission_ids as $permission) {
+            if(!Permission::find($permission)) {
+                $request->session()->flash('error_message', 'Permission not found.');
+
+                return redirect()->back();
+            }
         }
 
         $rnd_int = random_int(100000, 999999);
@@ -125,6 +133,15 @@ class AdminController extends Controller
         $user->address_id = $address->id;
         $user->station_id = $station->id;
         $user->save();
+
+        foreach ($request->permission_ids as $permission) {
+            $user->permissions()->attach($permission);
+        }
+        $user->update();
+
+
+        // return $request->input();
+
 
         Mail::to($request->email)
             ->send(new MailVerifyLinkSender('Verify Email', $user->id, $rnd_int));
