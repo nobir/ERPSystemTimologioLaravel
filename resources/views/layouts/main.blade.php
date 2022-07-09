@@ -16,7 +16,7 @@
     <header class=" {{ Session::has('loggedin') ? 'd-lg-block' : 'd-md-block' }} container bg-success p-3">
         <div class="row">
             <div class="col-12 col-md-3 text-center text-md-start">
-                <a href="{{ route('home.index') }}" class="navbar-brand-md h2 text-decoration-none text-white"><i class="bi bi-life-preserver text-white display-5"></i></a>
+                <a href="{{ route('dashboard.profile') }}" class="navbar-brand-md h2 text-decoration-none text-white"><i class="bi bi-life-preserver text-white display-5"></i></a>
                 @if (Session::has('loggedin') && Session::has('user'))
                     <div>
                         <span class="text-white fs-6">Logged in <a href="" class="badge badge-danger">{{ Session::get('user')->username }}</a> as {{ Session::get('user')->type == 0 ? "System Admin" : (Session::get('user')->type == 1 ? "CEO" : (Session::get('user')->type == 2 ? "Manager" : (Session::get('user')->type == 3 ? "Employee" : (Session::get('user')->type == 4 ? "Receptionist" : "")))) }}</span>
