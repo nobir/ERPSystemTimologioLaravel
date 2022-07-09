@@ -39,7 +39,7 @@ $page_title = 'View Verified Users';
                         <td>{{ $user->address->zip_code }}</td>
                         <td>
                             {{-- <a href="{{ route('admin.editUser', $user->id) }}" class="btn btn-primary">Edit</a> --}}
-                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.editUser', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
                             <a href="" class="btn btn-danger">Delete</a>
                             <a href="{{ route('admin.unverifyUser', ['id' => $user->id]) }}" class="btn btn-danger">Unverify</a>
                         </td>
