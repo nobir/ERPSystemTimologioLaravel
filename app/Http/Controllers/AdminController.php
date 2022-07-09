@@ -62,11 +62,11 @@ class AdminController extends Controller
         $permissions = Permission::all();
 
         $user_types = [
-            '0' => 'Receptionist',
-            '1' => 'Employee',
+            '4' => 'Receptionist',
+            '3' => 'Employee',
             '2' => 'Manager',
-            '3' => 'CEO',
-            '4' => 'System Admin',
+            '1' => 'CEO',
+            // '0' => 'System Admin',
         ];
 
         return view('ceo.createUser')
@@ -77,6 +77,10 @@ class AdminController extends Controller
 
     public function createUserSubmit(Request $request)
     {
+        $request->merge([
+            'permission_ids' => array_unique(array_filter($request->permission_ids)),
+        ]);
+
         $this->validate(
             $request,
             [
@@ -155,6 +159,107 @@ class AdminController extends Controller
     public function sendEmailVerifyLink(Request $request)
     {
         return view('ceo.sendEmailVerifyLink');
+    }
+
+    public function editUser(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if(!$user) {
+            $request->session()->flash('error_message', 'User not found.');
+            return redirect()->back();
+        }
+
+        $stations = Station::all();
+        $permissions = Permission::all();
+
+        $user_types = [
+            '4' => 'Receptionist',
+            '3' => 'Employee',
+            '2' => 'Manager',
+            '1' => 'CEO',
+            // '0' => 'System Admin',
+        ];
+
+        return view('ceo.editUser')
+            ->with('user', $user)
+            ->with('user_types', $user_types)
+            ->with('stations', $stations)
+            ->with('permissions', $permissions);
+    }
+
+    public function editUserSubmit(Request $request, $id)
+    {
+        $request->merge([
+            'permission_ids' => array_unique(array_filter($request->permission_ids)),
+        ]);
+
+        // return $request->input();
+
+        $this->validate(
+            $request,
+            [
+                'verified' => 'required|numeric|regex:/^[0-1]$/i',
+                'name' => 'required|min:3',
+                // 'username' => 'required|min:3|unique:users,username',
+                // 'email' => 'required|email|unique:users,email',
+                'hire_date' => 'required|date|date_format:Y-m-d',
+                'type' => 'required|numeric|min:0|max:4',
+                'salary' => 'required|numeric|min:0',
+                'station_id' => 'required|numeric|exists:stations,id',
+                'permission_ids' => 'required|array|min:1|exists:permissions,id',
+            ]
+        );
+
+        $station = Station::find($request->station_id);
+
+        if (!$station) {
+            $request->session()->flash('error_message', 'Station not found.');
+            return redirect()->back();
+        }
+
+        $user = User::find($id);
+
+        if(!$user) {
+            $request->session()->flash('error_message', 'User not found.');
+            return redirect()->back();
+        }
+
+
+        foreach ($request->permission_ids as $permission) {
+            if(!Permission::find($permission)) {
+                $request->session()->flash('error_message', 'Permission not found.');
+
+                return redirect()->back();
+            }
+        }
+
+        // return $request->input();
+
+        $user->verified = $request->verified;
+        $user->name = $request->name;
+        $user->type = $request->type;
+        $user->salary = $request->salary;
+        $user->hire_date = $request->hire_date;
+        $user->address->local_address = $request->local_address;
+        $user->address->police_station = $request->police_station;
+        $user->address->city = $request->city;
+        $user->address->country = $request->country;
+        $user->address->zip_code = $request->zip_code;
+        $user->address->update();
+        $user->station_id = $station->id;
+        $user->update();
+
+
+        $user->permissions()->detach();
+        // return back();
+        foreach ($request->permission_ids as $permission) {
+            $user->permissions()->attach($permission);
+        }
+
+        $request->session()->flash('success_message', "User updated successfully.");
+
+        return redirect()->back();
     }
 
     public function sendEmailVerifyLinkSubmit(Request $request)

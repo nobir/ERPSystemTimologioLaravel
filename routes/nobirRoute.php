@@ -44,4 +44,9 @@ Route::controller(AdminController::class)
         Route::get('/unverifyUser/{id}', 'unverifyUser')->name('admin.unverifyUser');
         Route::get('/emailVerify', 'sendEmailVerifyLink')->name('admin.sendEmailVerifyLink');
         Route::post('/emailVerify', 'sendEmailVerifyLinkSubmit')->name('admin.sendEmailVerifyLinkSubmit');
+
+        Route::get('/user/edit/{id}', 'editUser')->name('admin.editUser')->whereNumber('id');
+        Route::post('/user/edit/{id}', 'editUserSubmit')->name('admin.editUserSubmit')->whereNumber('id');
+
+        Route::get('/user/delete/{id}', 'deleteUser')->name('admin.deleteUser')->whereNumber('id');
     });
