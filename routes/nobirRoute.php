@@ -26,6 +26,8 @@ Route::controller(HomeController::class)->group(function () {
 
 Route::controller(DashboardController::class)->middleware('loggedin')->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard.index');
+
+    Route::get('/dashbord/profile', 'profile')->name('dashboard.profile');
 });
 
 Route::controller(AdminController::class)
