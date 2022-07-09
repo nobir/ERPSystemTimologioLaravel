@@ -3,40 +3,45 @@
         console.log("ready");
 
         const permission_add_btn = $("#permission-add-btn");
-        const permission_list = $("#permissions");
+        const permission_lists = $("#hidden-permission-list");
+        const first_permission = $("#permissions > div:nth-child(1)");
+        let remove_btns = $("div.remove-btn-container");
 
-        let remove_btn = `<div class="col-sm-4 mb-2" id="remove-btn-container"><a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn"><i class="bi bi-dash-circle mr-2"></i>Remove</a></div>`;
-
-        let remvoe_btn_show = permission_list.clone()[0].innerHTML + remove_btn;
-        // console.dir(remvoe_btn_show);
-
-        permission_add_btn.on("click", (e) => {
-            e.preventDefault();
-            console.log("click");
-
-            // console.log(permission_add_btn.parent().parent().children().find('#permissions.row > .col-sm-8').last())
-            permission_add_btn
-                .parent()
-                .parent()
-                .children()
-                .find("#permissions.row > .col-sm-8")
-                .first()
-                .after(remvoe_btn_show);
-
-            let permission_remove_btn = $("#permission-remove-btn");
-            // console.log(permission_remove_btn)
-
-            permission_remove_btn.on("click", (e) => {
+        remove_btns.each(function () {
+            $(this).find('a').click(function (e) {
                 e.preventDefault();
-                // console.log(this);
-                let prevElem = permission_remove_btn.parent().prev();
-                let currElem = permission_remove_btn.parent();
 
-                prevElem.remove();
-                currElem.remove();
+                let _prevElem = $(this).parent().prev();
+                let _currElem = $(this).parent();
+                // console.log(_prevElem, _currElem);
+
+                _prevElem.remove();
+                _currElem.remove();
             });
         });
 
-        console.log(permission_remove_btn);
+        permission_add_btn.on("click", function (e) {
+            e.preventDefault();
+
+            let _clone = permission_lists.clone();
+
+            first_permission.after(_clone.html());
+
+            let _remove_btns = $("div.remove-btn-container");
+
+            _remove_btns.each(function (i, v) {
+                // console.log(v);
+                $(this).find('a').click(function (e) {
+                    e.preventDefault();
+
+                    let _prevElem = $(this).parent().prev();
+                    let _currElem = $(this).parent();
+                    // console.log(_prevElem, _currElem);
+
+                    _prevElem.remove();
+                    _currElem.remove();
+                });
+            });
+        });
     });
 })(jQuery);

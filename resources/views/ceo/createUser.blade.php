@@ -131,6 +131,24 @@ $page_title = 'Create User';
             </div>
         </div>
         <div class="row mb-3 has-validation">
+            <div class="d-none" id="hidden-permission-list">
+                <div class="col-sm-8 mb-2">
+                    <select id="permission_ids"
+                        class="@error('permission_ids') is-invalid @enderror form-control {{ old('permission_ids') && !$errors->first('permission_ids') ? 'is-valid' : '' }}"
+                        name="permission_ids[]">
+                        <option value="">None</option>
+                        @foreach ($permissions as $permission)
+                            <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-4 mb-2 remove-btn-container p-0" id="remove-btn-container">
+                    <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
+                        <i class="bi bi-dash-circle mr-2"></i>Remove
+                    </a>
+                </div>
+            </div>
+
             <label for="permission_id" class="col-sm-3 col-form-label">Permission</label>
             <div class="col-sm-7">
                 <div id="permissions" class="row">
