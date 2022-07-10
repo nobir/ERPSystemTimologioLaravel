@@ -47,8 +47,8 @@ $page_title = 'View Unverified Users';
                 @endforeach
             </tbody>
         </table>
-        <dir class="d-flex justify-content-center align-items-center">
-            {{ $users->links('pagination::bootstrap-4') }}
-        </dir>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        {{ $users->links('pagination::bootstrap-4') }}
     </div>
 @endsection
