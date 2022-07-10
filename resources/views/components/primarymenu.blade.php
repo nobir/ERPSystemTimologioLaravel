@@ -7,11 +7,11 @@ $login_primary_menus = [
     ],
     [
         'title' => 'View Profile',
-        'path' => '',
+        'path' => route('dashboard.profile'),
     ],
     [
         'title' => 'Edit Profile',
-        'path' => '',
+        'path' => route('dashboard.profileEdit'),
     ],
     [
         'title' => 'Profile Picture',

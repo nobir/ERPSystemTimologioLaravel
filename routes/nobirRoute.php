@@ -24,11 +24,17 @@ Route::controller(HomeController::class)->group(function () {
         ->whereNumber(['user_id', 'code']);
 });
 
-Route::controller(DashboardController::class)->middleware('loggedin')->group(function () {
-    Route::get('/dashboard', 'index')->name('dashboard.index');
+Route::controller(DashboardController::class)
+    ->prefix('dashboard')
+    ->middleware('loggedin')
+    ->group(function () {
+        Route::get('/', 'index')->name('dashboard.index');
 
-    Route::get('/dashbord/profile', 'profile')->name('dashboard.profile');
-});
+        Route::get('/profile', 'profile')->name('dashboard.profile');
+
+        Route::get('/profile/edit', 'profileEdit')->name('dashboard.profileEdit');
+        Route::post('/profile/edit', 'profileEditSubmit')->name('dashboard.profileEditSubmit');
+    });
 
 Route::controller(AdminController::class)
     ->prefix('admin')
