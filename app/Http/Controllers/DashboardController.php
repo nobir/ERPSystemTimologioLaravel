@@ -65,7 +65,7 @@ class DashboardController extends Controller
             $validation_rules = array_merge(
                 $validation_rules,
                 [
-                    'type' => 'required|numeric|min:0|max:4',
+                    // 'type' => 'required|numeric|min:0|max:4',
                     'station_id' => 'required|numeric|exists:stations,id',
                     'permission_ids' => 'required|array|min:1|exists:permissions,id',
                 ]
@@ -93,7 +93,7 @@ class DashboardController extends Controller
                 }
             }
 
-            $user->type = $request->type;
+            // $user->type = $request->type;
             $user->station_id = $station->id;
             $user->permissions()->detach();
             // return back();
