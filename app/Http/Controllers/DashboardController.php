@@ -45,10 +45,6 @@ class DashboardController extends Controller
 
     public function profileEditSubmit(Request $request)
     {
-        /**
-         * Station_id, User Type and Permission not working
-         */
-
         $user = User::find($request->session()->get('user')->id);
 
         $validation_rules = [
