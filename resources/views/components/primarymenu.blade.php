@@ -15,7 +15,7 @@ $login_primary_menus = [
     ],
     [
         'title' => 'Profile Picture',
-        'path' => '',
+        'path' => route('dashboard.profilePicture'),
     ],
     [
         'title' => 'Change Password',
