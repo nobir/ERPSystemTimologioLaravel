@@ -40,7 +40,7 @@ $page_title = 'View Verified Users';
                         <td>
                             {{-- <a href="{{ route('admin.editUser', $user->id) }}" class="btn btn-primary">Edit</a> --}}
                             <a href="{{ route('admin.editUser', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('admin.deleteUser', ['id' => $user->id]) }}" id="delete-btn" class="btn btn-danger delete-btn">Delete</a>
                             <a href="{{ route('admin.unverifyUser', ['id' => $user->id]) }}" class="btn btn-danger">Unverify</a>
                         </td>
                     </tr>

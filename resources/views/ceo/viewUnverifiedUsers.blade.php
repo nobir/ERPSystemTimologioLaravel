@@ -41,7 +41,7 @@ $page_title = 'View Unverified Users';
                             {{-- <a href="{{ route('admin.editUser', $user->id) }}" class="btn btn-primary">Edit</a> --}}
                             <a href="{{ route('admin.verifyUser', ['id' => $user->id]) }}" class="btn btn-success">Verify</a>
                             <a href="{{ route('admin.editUser', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
-                            <a href="" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('admin.deleteUser', ['id' => $user->id]) }}" id="delete-btn" class="btn btn-danger delete-btn">Delete</a>
                         </td>
                     </tr>
                 @endforeach

@@ -106,7 +106,7 @@ class AdminController extends Controller
         }
 
         foreach ($request->permission_ids as $permission) {
-            if(!Permission::find($permission)) {
+            if (!Permission::find($permission)) {
                 $request->session()->flash('error_message', 'Permission not found.');
 
                 return redirect()->back();
@@ -165,7 +165,7 @@ class AdminController extends Controller
     {
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             $request->session()->flash('error_message', 'User not found.');
             return redirect()->back();
         }
@@ -220,14 +220,14 @@ class AdminController extends Controller
 
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             $request->session()->flash('error_message', 'User not found.');
             return redirect()->back();
         }
 
 
         foreach ($request->permission_ids as $permission) {
-            if(!Permission::find($permission)) {
+            if (!Permission::find($permission)) {
                 $request->session()->flash('error_message', 'Permission not found.');
 
                 return redirect()->back();
@@ -285,6 +285,22 @@ class AdminController extends Controller
             ->send(new MailVerifyLinkSender('Verify Email', $user->id, $rnd_int,));
 
         $request->session()->flash('success_message', "A verification link has beed sent to $user->email");
+
+        return redirect()->back();
+    }
+
+    public function deleteUser(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if(!$user) {
+            $request->session()->flash('error_message', 'User not found.');
+            return redirect()->back();
+        }
+
+        $user->delete();
+
+        $request->session()->flash('success_message', "User deleted successfully.");
 
         return redirect()->back();
     }
