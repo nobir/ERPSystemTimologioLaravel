@@ -7,14 +7,14 @@ $page_title = 'Profile';
 @section('contents')
     <ul class="list-group list-group-flush">
 
-        {{-- <li class="list-group-item d-block">
+        <li class="list-group-item d-block">
             <div class="row">
                 <div class="col-md-8"></div>
                 <div class="col-md-4 w-100">
-                    <img src="<?php echo !empty(_get_session_val('pp_path')) ? _get_assets_uri(_get_session_val('pp_path'), 'uploads') : _get_assets_uri('default-pp.png', 'img'); ?>" class="img-thumbnail rounded mx-auto d-block" alt="<?php echo _get_session_val('name'); ?>">
+                    <img src="{{ $user->avatar ? url($user->avatar) : url('images/default-user-avatar.png') }}" class="img-thumbnail rounded mx-auto d-block" alt="{{ $user->name }}">
                 </div>
             </div>
-        </li> --}}
+        </li>
 
         <li class="list-group-item">
             <div class="row">
