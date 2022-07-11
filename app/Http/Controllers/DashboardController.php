@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Station;
 use App\Models\Permission;
+use Illuminate\Support\Facades\Crypt;
 
 class DashboardController extends Controller
 {
@@ -156,6 +157,56 @@ class DashboardController extends Controller
         $request->session()->put('user', $user);
 
         $request->session()->flash('success_message', "Uploaded avatar successfully.");
+        return redirect()->back();
+    }
+
+    public function changePassword(Request $request)
+    {
+        return view('dashboard.changePassword');
+    }
+
+    public function changePasswordSubmit(Request $request)
+    {
+        // dd($request->all());
+
+        /**
+         * reqular expression
+         * @link https://regexr.com/6pguf
+         */
+
+        $this->validate(
+            $request,
+            [
+                'currentpass' => 'required',
+                'newpass' => 'required|min:8|regex:/^(?=.*[\!\@\#\$\%\^\&\*\(\)])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                'retypepass' => 'required|same:newpass',
+            ],
+            [
+                'newpass.regex' => "Password must contain at least one special character, one uppercase letter, one lowercase letter and one digit.",
+            ]
+        );
+
+        $user = User::find($request->session()->get('user')->id);
+
+        if (!$user) {
+            $request->session()->flash('error_message', 'User not found.');
+            return redirect()->back();
+        }
+
+        $check_current_pass = Crypt::decrypt($user->password) === $request->currentpass;
+
+        if (!$check_current_pass) {
+            $request->session()->flash('error_message', 'Current password is incorrect.');
+            return redirect()->back();
+        }
+
+        $user->password = Crypt::encrypt($request->newpass);
+        $user->update();
+
+        $request->session()->remove('user');
+        $request->session()->put('user', $user);
+
+        $request->session()->flash('success_message', "Password changed successfully.");
         return redirect()->back();
     }
 }
