@@ -34,6 +34,9 @@ Route::controller(DashboardController::class)
 
         Route::get('/profile/edit', 'profileEdit')->name('dashboard.profileEdit');
         Route::post('/profile/edit', 'profileEditSubmit')->name('dashboard.profileEditSubmit');
+
+        Route::get('/profile/picture', 'profilePicture')->name('dashboard.profilePicture');
+        Route::post('/profile/picture', 'profilePictureSubmit')->name('dashboard.profilePictureSubmit');
     });
 
 Route::controller(AdminController::class)

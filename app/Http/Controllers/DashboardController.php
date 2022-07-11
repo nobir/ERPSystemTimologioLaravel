@@ -118,4 +118,44 @@ class DashboardController extends Controller
 
         return redirect()->back();
     }
+
+    public function profilePicture(Request $request)
+    {
+        return view('dashboard.profilePicture');
+    }
+
+    public function profilePictureSubmit(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'avatar' => 'required|max:2048|image|file',
+            ]
+        );
+
+        $user = User::find($request->session()->get('user')->id);
+
+        if (!$user) {
+            $request->session()->flash('error_message', 'User not found.');
+            return redirect()->back();
+        }
+
+        // return public_path();
+
+        $path = $request->file('avatar')->store('public/avatars');
+
+        if (!$path) {
+            $request->session()->flash('error_message', 'Error uploading avatar.');
+            return redirect()->back();
+        }
+
+        $user->avatar = str_replace('public', 'storage', $path) ;
+        $user->update();
+
+        $request->session()->remove('user');
+        $request->session()->put('user', $user);
+
+        $request->session()->flash('success_message', "Uploaded avatar successfully.");
+        return redirect()->back();
+    }
 }
