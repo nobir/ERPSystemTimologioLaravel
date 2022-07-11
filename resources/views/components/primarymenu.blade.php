@@ -19,7 +19,7 @@ $login_primary_menus = [
     ],
     [
         'title' => 'Change Password',
-        'path' => '',
+        'path' => route('dashboard.changePassword'),
     ],
     [
         'title' => 'Logout',
