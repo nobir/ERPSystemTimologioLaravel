@@ -37,6 +37,9 @@ Route::controller(DashboardController::class)
 
         Route::get('/profile/picture', 'profilePicture')->name('dashboard.profilePicture');
         Route::post('/profile/picture', 'profilePictureSubmit')->name('dashboard.profilePictureSubmit');
+
+        Route::get('/changePassword', 'changePassword')->name('dashboard.changePassword');
+        Route::post('/changePassword', 'changePasswordSubmit')->name('dashboard.changePasswordSubmit');
     });
 
 Route::controller(AdminController::class)
