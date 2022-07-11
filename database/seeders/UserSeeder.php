@@ -42,5 +42,29 @@ class UserSeeder extends Seeder
         $user->address_id = $address->id;
         $user->station_id = 10;
         $user->save();
+
+        $user = new User();
+        $user->verified = 1;
+        $user->verify_email = 0;
+        $user->username = 'sajjad';
+        $user->type = 2; // Manager
+        $user->status = 0;
+        $user->name = 'Nahian Sajjad';
+        $user->email = 'sajjadrocks97@gmail.com';
+        $user->password = Crypt::encrypt('password');
+        $user->salary = 80000.00;
+        $user->hire_date = now();
+
+        $address = new Address();
+        $address->local_address = 'Bashundhara';
+        $address->police_station = 'Bashundhara';
+        $address->city = 'Dhaka';
+        $address->country = 'Bangladesh';
+        $address->zip_code = '1229';
+        $address->save();
+
+        $user->address_id = $address->id;
+        $user->station_id = 9;
+        $user->save();
     }
 }
