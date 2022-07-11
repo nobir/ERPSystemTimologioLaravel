@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable(false);
             $table->unsignedDouble('salary')->nullable();
             $table->dateTime('hire_date')->nullable();
+            $table->string('avatar')->nullable();
             $table->unsignedBigInteger('address_id');
             $table->unsignedBigInteger('station_id');
             $table->timestamps();
