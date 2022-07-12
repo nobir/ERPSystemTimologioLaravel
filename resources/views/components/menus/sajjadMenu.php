@@ -1,0 +1,3 @@
+<?php
+
+$manager_menus = [];

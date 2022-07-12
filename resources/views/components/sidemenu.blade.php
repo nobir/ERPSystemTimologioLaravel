@@ -1,26 +1,10 @@
 @php
 
-$admin_menus = [
-    [
-        'title' => 'Verify Users',
-        'path' => route('admin.viewUnverifiedUsers'),
-    ],
-    [
-        'title' => 'View Users',
-        'path' => route('admin.viewUsers'),
-    ],
-    [
-        'title' => 'Add User',
-        'path' => route('admin.createUser'),
-    ],
-    [
-        'title' => 'Send Email Verification Link',
-        'path' => route('admin.sendEmailVerifyLink'),
-    ],
-];
-$manager_menus = [];
-$employee_menus = [];
-$receptionist_menus = [];
+require_once dirname(__FILE__) . '/menus/nobirMenu.php';
+require_once dirname(__FILE__) . '/menus/sajjadMenu.php';
+require_once dirname(__FILE__) . '/menus/jannatulMenu.php';
+require_once dirname(__FILE__) . '/menus/tareqMenu.php';
+
 @endphp
 
 <div class="animate-100 d-md-block list-group mb-3">
