@@ -1,10 +1,8 @@
 @php
-
-require_once dirname(__FILE__) . '/menus/nobirMenu.php';
-require_once dirname(__FILE__) . '/menus/sajjadMenu.php';
-require_once dirname(__FILE__) . '/menus/jannatulMenu.php';
-require_once dirname(__FILE__) . '/menus/tareqMenu.php';
-
+    require_once dirname(__FILE__, 4) . '/resources/views/components/menus/nobirMenu.php';
+    require_once dirname(__FILE__, 4) . '/resources/views/components/menus/sajjadMenu.php';
+    require_once dirname(__FILE__, 4) . '/resources/views/components/menus/jannatulMenu.php';
+    require_once dirname(__FILE__, 4) . '/resources/views/components/menus/tareqMenu.php';
 @endphp
 
 <div class="animate-100 d-md-block list-group mb-3">
