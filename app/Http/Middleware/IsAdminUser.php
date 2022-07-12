@@ -16,7 +16,7 @@ class IsAdminUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->session()->get('user')->type === 0 || $request->session()->get('user')->type === 1) {
+        if ($request->session()->get('user')->type <= 1) {
             return $next($request);
         }
 
