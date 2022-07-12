@@ -193,7 +193,7 @@ class DashboardController extends Controller
             return redirect()->back();
         }
 
-        $check_current_pass = Crypt::decrypt($user->password) === $request->currentpass;
+        $check_current_pass = Crypt::decrypt($user->password) . "" === $request->currentpass . "";
 
         if (!$check_current_pass) {
             $request->session()->flash('error_message', 'Current password is incorrect.');
