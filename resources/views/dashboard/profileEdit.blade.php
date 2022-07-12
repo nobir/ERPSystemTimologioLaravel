@@ -86,22 +86,20 @@ $page_title = 'Edit';
                     @enderror
                 </div>
             </div>
-        @endif
-        <div class="row mb-3 has-validation">
-            <label for="hire_date" class="col-sm-3 col-form-label">Hire Date</label>
-            <div class="col-sm-9">
-                <input id="hire_date" type="date" name="hire_date"
-                    class="@error('hire_date') is-invalid @enderror form-control {{ old('hire_date') && !$errors->first('hire_date') ? 'is-valid' : '' }}"
-                    value="{{ date('Y-m-d', strtotime($user->hire_date)) }}">
+            <div class="row mb-3 has-validation">
+                <label for="hire_date" class="col-sm-3 col-form-label">Hire Date</label>
+                <div class="col-sm-9">
+                    <input id="hire_date" type="date" name="hire_date"
+                        class="@error('hire_date') is-invalid @enderror form-control {{ old('hire_date') && !$errors->first('hire_date') ? 'is-valid' : '' }}"
+                        value="{{ date('Y-m-d', strtotime($user->hire_date)) }}">
 
-                @error('hire_date')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                    @error('hire_date')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
-        </div>
-        @if ($user->type <= 1)
             <div class="row mb-3 has-validation">
                 <label for="station_id" class="col-sm-3 col-form-label">Station</label>
                 <div class="col-sm-9">

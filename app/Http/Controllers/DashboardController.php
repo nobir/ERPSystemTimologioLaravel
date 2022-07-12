@@ -91,6 +91,7 @@ class DashboardController extends Controller
             }
 
             // $user->type = $request->type;
+            $user->hire_date = $request->hire_date;
             $user->salary = $request->salary;
             $user->station_id = $station->id;
             $user->permissions()->detach();
@@ -103,7 +104,6 @@ class DashboardController extends Controller
         // return $request->input();
 
         $user->name = $request->name;
-        $user->hire_date = $request->hire_date;
         $user->address->local_address = $request->local_address;
         $user->address->police_station = $request->police_station;
         $user->address->city = $request->city;
