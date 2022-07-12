@@ -27,7 +27,7 @@ class AdminController extends Controller
             ->with('users', $users);
     }
 
-    public function ViewUnverifiedUsers(Request $request)
+    public function viewUnverifiedUsers(Request $request)
     {
         $users = User::where('verified', 0)->paginate(5);
 
