@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 require_once(dirname(__FILE__) . "/nobirRoute.php");
+require_once(dirname(__FILE__) . "/sajjadRoute.php");
 require_once(dirname(__FILE__) . "/jannatulRoute.php");
 require_once(dirname(__FILE__) . "/tareqRoute.php");
-require_once(dirname(__FILE__) . "/sajjadRoute.php");
