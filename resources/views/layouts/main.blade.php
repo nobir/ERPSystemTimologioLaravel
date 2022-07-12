@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class=" {{ Session::has('loggedin') ? 'd-lg-block' : 'd-md-block' }} container bg-success p-3">
+    <header class=" {{ Session::has('loggedin') ? 'd-lg-block' : 'd-md-block' }} container-fluid bg-success p-3">
         <div class="row">
             <div class="col-12 col-md-3 text-center text-md-start">
                 <a href="{{ route('home.index') }}" class="navbar-brand-md h2 text-decoration-none text-white"><i class="bi bi-life-preserver text-white display-5"></i></a>
@@ -29,7 +29,7 @@
         </div>
     </header>
 
-    <main class="container py-2 my-3 border">
+    <main class="container-fluid py-2 my-3 border">
         <div class="row">
             <div class="col-12">
                 <h1 class="text-center">{{ $page_title }} Page</h1>
@@ -72,7 +72,7 @@
         </div>
     </main>
 
-    <footer class="container bg-success p-3">
+    <footer class="container-fluid bg-success p-3">
         <div class="row">
             <div class="col-12 text-center">
                 <p class="text-white mb-0">
