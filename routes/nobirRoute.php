@@ -51,8 +51,18 @@ Route::controller(AdminController::class)
         // Users
         Route::get('/user/create', 'createUser')->name('admin.createUser');
         Route::post('/user/create', 'createUserSubmit')->name('admin.createUserSubmit');
+
         Route::get('/users', 'viewUsers')->name('admin.viewUsers');
         Route::get('/unverifiedUsers', 'viewUnverifiedUsers')->name('admin.viewUnverifiedUsers');
+
+        Route::get('/users/{search_by}/{search_value}', 'viewSearchUsers')->name('admin.viewSearchUsers');
+        Route::get('/unverifiedUsers/{search_by}/{search_value}', 'viewSearchUnverifiedUsers')->name('admin.viewSearchUnverifiedUsers');
+
+        Route::get('/searchUsers', 'searchUsers')->name('admin.searchUsers');
+        Route::post('/searchUsers', 'searchUsersSubmit')->name('admin.searchUsersSubmit');
+
+        Route::get('/searchUnverifiedUsers', 'searchUnverifiedUsers')->name('admin.searchUnverifiedUsers');
+        Route::post('/searchUnverifiedUsers', 'searchUnverifiedUsersSubmit')->name('admin.searchUnverifiedUsersSubmit');
 
         Route::get('/verifyUser/{id}', 'verifyUser')->name('admin.verifyUser');
         Route::get('/unverifyUser/{id}', 'unverifyUser')->name('admin.unverifyUser');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Permission;
 use App\Models\Station;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 
@@ -29,6 +30,118 @@ class AdminController extends Controller
     public function ViewUnverifiedUsers(Request $request)
     {
         $users = User::where('verified', 0)->paginate(5);
+
+        return view('ceo.viewUnverifiedUsers')
+            ->with('users', $users);
+    }
+
+    public function searchUsers(Request $request)
+    {
+        return redirect()->back();
+    }
+
+    public function searchUnverifiedUsers(Request $request)
+    {
+        return redirect()->back();
+    }
+
+    public function searchUsersSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'search_by' => 'required|in:id,name,username,email,local_address,police_station,city,zip_code,country,station,permission',
+            'search_value' => 'required',
+        ]);
+
+        return redirect()->route('admin.viewSearchUsers', [
+            'search_by' => $request->search_by,
+            'search_value' => $request->search_value,
+        ]);
+    }
+
+    public function searchUnverifiedUsersSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'search_by' => 'required|in:id,name,username,email,local_address,police_station,city,zip_code,country,station,permission',
+            'search_value' => 'required',
+        ]);
+
+        return redirect()->route('admin.viewSearchUnverifiedUsers', [
+            'search_by' => $request->search_by,
+            'search_value' => $request->search_value,
+        ]);
+    }
+
+    public function viewSearchUsers(Request $request, $search_by, $search_value)
+    {
+        $request->merge(['search_by' => $search_by, 'search_value' => $search_value]);
+
+        $this->validate($request, [
+            'search_by' => 'required|in:id,name,username,email,local_address,police_station,city,zip_code,country,station,permission',
+            'search_value' => 'required',
+        ]);
+
+        $users = null;
+
+        if ($search_by === 'id') {
+            $users = User::where($search_by, "$search_value")->where('verified', 1)->paginate(5);
+        } else if ($search_by === 'local_address' || $search_by === 'police_station' || $search_by === 'city' || $search_by === 'zip_code' || $search_by === 'country') {
+            $users = User::whereHas('address', function (Builder $query) use ($search_by, $search_value) {
+                $query->where($search_by, 'LIKE', "%$search_value%");
+            })->where('verified', 1)->paginate(5);
+        } else if ($search_by === 'station') {
+            $users = User::whereHas('station', function (Builder $query) use ($search_value) {
+                $query->where('name', 'LIKE', "%$search_value%");
+            })->where('verified', 1)->paginate(5);
+        } else if ($search_by === 'permission') {
+            $users = User::whereHas('permissions', function (Builder $query) use ($search_value) {
+                $query->where('name', 'LIKE', "%$search_value%");
+            })->where('verified', 1)->paginate(5);
+        } else {
+            $users = User::where($search_by, "LIKE", "%$search_value%")->where('verified', 1)->paginate(5);
+        }
+
+        if (!$users || $users->count() == 0) {
+            $request->session()->flash('error_message', 'No users found.');
+            return redirect()->route('admin.viewUsers');
+        }
+
+        return view('ceo.viewUsers')
+            ->with('users', $users);
+    }
+
+    public function viewSearchUnverifiedUsers(Request $request, $search_by, $search_value)
+    {
+        $request->merge(['search_by' => $search_by, 'search_value' => $search_value]);
+
+        $this->validate($request, [
+            'search_by' => 'required|in:id,name,username,email,local_address,police_station,city,zip_code,country,station,permission',
+            'search_value' => 'required',
+        ]);
+
+        $users = null;
+
+        if ($search_by === 'id') {
+            $users = User::where($search_by, "$search_value")->where('verified', 0)->paginate(5);
+        } else if ($search_by === 'local_address' || $search_by === 'police_station' || $search_by === 'city' || $search_by === 'zip_code' || $search_by === 'country') {
+            $users = User::whereHas('address', function (Builder $query) use ($search_by, $search_value) {
+                $query->where($search_by, 'LIKE', "%$search_value%");
+            })->where('verified', 0)->paginate(5);
+        } else if ($search_by === 'station') {
+            $users = User::whereHas('station', function (Builder $query) use ($search_value) {
+                $query->where('name', 'LIKE', "%$search_value%");
+            })->where('verified', 0)->paginate(5);
+        } else if ($search_by === 'permission') {
+            $users = User::whereHas('permissions', function (Builder $query) use ($search_value) {
+                $query->where('name', 'LIKE', "%$search_value%");
+            })->where('verified', 0)->paginate(5);
+        } else {
+            $users = User::where($search_by, "LIKE", "%$search_value%")->where('verified', 0)->paginate(5);
+        }
+
+        if (!$users || $users->count() == 0) {
+            $request->session()->flash('error_message', 'No users found.');
+            return redirect()->route('admin.viewUnverifiedUsers');
+        }
 
         return view('ceo.viewUnverifiedUsers')
             ->with('users', $users);
@@ -293,7 +406,7 @@ class AdminController extends Controller
     {
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             $request->session()->flash('error_message', 'User not found.');
             return redirect()->back();
         }
