@@ -91,6 +91,7 @@ class DashboardController extends Controller
             }
 
             // $user->type = $request->type;
+            $user->salary = $request->salary;
             $user->station_id = $station->id;
             $user->permissions()->detach();
             // return back();
@@ -102,7 +103,6 @@ class DashboardController extends Controller
         // return $request->input();
 
         $user->name = $request->name;
-        $user->salary = $request->salary;
         $user->hire_date = $request->hire_date;
         $user->address->local_address = $request->local_address;
         $user->address->police_station = $request->police_station;
@@ -150,7 +150,7 @@ class DashboardController extends Controller
             return redirect()->back();
         }
 
-        $user->avatar = str_replace('public', 'storage', $path) ;
+        $user->avatar = str_replace('public', 'storage', $path);
         $user->update();
 
         $request->session()->remove('user');
