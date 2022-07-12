@@ -50,22 +50,22 @@ $page_title = 'Edit';
                 @enderror
             </div>
         </div>
-        <div class="row mb-3 has-validation">
-            <label for="salary" class="col-sm-3 col-form-label">Salary</label>
-            <div class="col-sm-9">
-                <input id="salary" type="text" name="salary"
-                    class="@error('salary') is-invalid @enderror form-control {{ old('salary') && !$errors->first('salary') ? 'is-valid' : '' }}"
-                    value="{{ $user->salary }}" placeholder="e.g 80000">
-
-                @error('salary')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
 
         @if ($user->type <= 1)
+            <div class="row mb-3 has-validation">
+                <label for="salary" class="col-sm-3 col-form-label">Salary</label>
+                <div class="col-sm-9">
+                    <input id="salary" type="text" name="salary"
+                        class="@error('salary') is-invalid @enderror form-control {{ old('salary') && !$errors->first('salary') ? 'is-valid' : '' }}"
+                        value="{{ $user->salary }}" placeholder="e.g 80000">
+
+                    @error('salary')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
             <div class="row mb-3 has-validation">
                 <label for="type" class="col-sm-3 col-form-label">User Type</label>
                 <div class="col-sm-9">
