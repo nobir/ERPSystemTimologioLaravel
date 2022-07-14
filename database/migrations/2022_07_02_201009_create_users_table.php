@@ -27,7 +27,8 @@ class CreateUsersTable extends Migration
             $table->dateTime('hire_date')->nullable();
             $table->string('avatar')->nullable();
             $table->unsignedBigInteger('address_id');
-            $table->unsignedBigInteger('station_id');
+            $table->unsignedBigInteger('region_id')->nullable();
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->timestamps();
 
             $table->foreign('address_id')
@@ -36,9 +37,15 @@ class CreateUsersTable extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreign('station_id')
+            $table->foreign('region_id')
                 ->references('id')
-                ->on('stations')
+                ->on('regions')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreign('branch_id')
+                ->references('id')
+                ->on('branches')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });

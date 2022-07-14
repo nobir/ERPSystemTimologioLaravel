@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class InvoiceFactory extends Factory
+class BranchFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +14,9 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         return [
-            'date' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'customer_id' => random_int(1, 2000),
-            'user_id' => random_int(1, 100),
+            'name' => $this->faker->name . " Branch",
+            'region_id' => random_int(1, 10),
+            'address_id' => random_int(11, 100),
         ];
     }
 }

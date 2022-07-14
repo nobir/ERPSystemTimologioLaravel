@@ -4,13 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Address;
-use App\Models\Station;
-use App\Models\Payment;
-use App\Models\Permission;
 use App\Models\VacationDetail;
+use App\Models\Permission;
 use App\Models\WorkingHour;
 use App\Models\WorkPost;
+use App\Models\Invoice;
+use App\Models\Address;
+use App\Models\Payment;
+use App\Models\Region;
+use App\Models\Branch;
 
 class User extends Model
 {
@@ -21,11 +23,19 @@ class User extends Model
         return $this->belongsTo(Address::class);
     }
 
-
-
-    public function station()
+    public function region()
     {
-        return $this->belongsTo(Station::class);
+        return $this->belongsTo(Region::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 
     public function payments()

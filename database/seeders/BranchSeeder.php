@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Address;
+use App\Models\Branch;
 
-class AddressSeeder extends Seeder
+class BranchSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        Address::factory()->count(160)->create();
+        Branch::factory()->count(50)->create();
     }
 }

@@ -40,7 +40,6 @@ class UserSeeder extends Seeder
         $address->save();
 
         $user->address_id = $address->id;
-        $user->station_id = 10;
         $user->save();
 
         $user = new User();
@@ -64,7 +63,7 @@ class UserSeeder extends Seeder
         $address->save();
 
         $user->address_id = $address->id;
-        $user->station_id = 9;
+        $user->region_id = 10;
         $user->save();
     }
 }

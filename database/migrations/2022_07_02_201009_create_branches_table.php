@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryInvoiceTable extends Migration
+class CreateBranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,22 @@ class CreateCategoryInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_invoice', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('quantity')->nullable(false);
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('invoice_id');
+            $table->string('name')->unique()->nullable(false);
+            $table->unsignedBigInteger('region_id');
+            $table->unsignedBigInteger('address_id');
             $table->timestamps();
 
-            $table->foreign('category_id')
+            $table->foreign('address_id')
                 ->references('id')
-                ->on('categories')
+                ->on('addresses')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreign('invoice_id')
+
+            $table->foreign('region_id')
                 ->references('id')
-                ->on('invoices')
+                ->on('regions')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });
@@ -40,6 +41,6 @@ class CreateCategoryInvoiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_invoice');
+        Schema::dropIfExists('branches');
     }
 }
