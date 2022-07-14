@@ -82,4 +82,6 @@ Route::controller(AdminController::class)
 
         Route::get('/permission/edit/{id}', 'editPermission')->name('admin.editPermission')->whereNumber('id');
         Route::post('/permission/edit/{id}', 'editPermissionSubmit')->name('admin.editPermissionSubmit')->whereNumber('id');
+
+        Route::get('/permission/delete/{id}', 'deletePermission')->name('admin.deletePermission')->whereNumber('id');
     });

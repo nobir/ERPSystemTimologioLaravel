@@ -520,4 +520,28 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+    public function deletePermission(Request $request, $id)
+    {
+        $request->merge(['id' => $id]);
+
+        $this->validate($request, [
+            'id' => 'required|exists:permissions,id',
+        ]);
+
+        $permission = Permission::find($id);
+
+        foreach ($permission->users as $user) {
+            $user->permissions()->detach($permission->id);
+        }
+
+        $permission->delete();
+
+        if (!$permission) {
+            $request->session()->flash('error_message', 'Permission not found.');
+            return redirect()->route('admin.viewPermissions');
+        }
+
+        return redirect()->route('admin.viewPermissions');
+    }
 }
