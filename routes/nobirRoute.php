@@ -73,4 +73,8 @@ Route::controller(AdminController::class)
         Route::post('/user/edit/{id}', 'editUserSubmit')->name('admin.editUserSubmit')->whereNumber('id');
 
         Route::get('/user/delete/{id}', 'deleteUser')->name('admin.deleteUser')->whereNumber('id');
+
+        // Permission
+        Route::get('/permission/create', 'createPermission')->name('admin.createPermission');
+        Route::post('/permission/create', 'createPermissionSubmit')->name('admin.createPermissionSubmit');
     });

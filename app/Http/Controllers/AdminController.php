@@ -448,4 +448,32 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+    public function createPermission(Request $request)
+    {
+        return view('ceo.createPermission');
+    }
+
+    public function createPermissionSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $permission = new Permission();
+
+        $permission->name = $request->name;
+        $permission->invoice_add = $request->invoice_add ? 1 : 0;
+        $permission->invoice_manage = $request->invoice_manage ? 1 : 0;
+        $permission->inventory_manage = $request->inventory_manage ? 1 : 0;
+        $permission->category_manage = $request->category_manage ? 1 : 0;
+        $permission->station_manage = $request->station_manage ? 1 : 0;
+        $permission->operation_manage = $request->operation_manage ? 1 : 0;
+        $permission->permission_mange = $request->permission_mange ? 1 : 0;
+        $permission->save();
+
+        $request->session()->flash('success_message', "Permission created successfully.");
+
+        return redirect()->back();
+    }
 }

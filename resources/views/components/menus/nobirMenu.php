@@ -14,6 +14,10 @@ $admin_menus = [
         'path' => route('admin.createUser'),
     ],
     [
+        'title' => 'Add Permission',
+        'path' => route('admin.createPermission'),
+    ],
+    [
         'title' => 'Send Email Verification Link',
         'path' => route('admin.sendEmailVerifyLink'),
     ],
