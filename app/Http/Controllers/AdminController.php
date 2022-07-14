@@ -454,6 +454,14 @@ class AdminController extends Controller
         return view('ceo.createPermission');
     }
 
+    public function viewPermissions(Request $request)
+    {
+        $permissions = Permission::paginate(5);
+
+        return view('ceo.viewPermissions')
+            ->with('permissions', $permissions);
+    }
+
     public function createPermissionSubmit(Request $request)
     {
         $this->validate($request, [
