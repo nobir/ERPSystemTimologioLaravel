@@ -79,4 +79,7 @@ Route::controller(AdminController::class)
 
         Route::get('/permission/create', 'createPermission')->name('admin.createPermission');
         Route::post('/permission/create', 'createPermissionSubmit')->name('admin.createPermissionSubmit');
+
+        Route::get('/permission/edit/{id}', 'editPermission')->name('admin.editPermission')->whereNumber('id');
+        Route::post('/permission/edit/{id}', 'editPermissionSubmit')->name('admin.editPermissionSubmit')->whereNumber('id');
     });

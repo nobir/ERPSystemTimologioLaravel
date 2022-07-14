@@ -484,4 +484,40 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+    public function editPermission(Request $request, $id)
+    {
+        $permission = Permission::find($id);
+
+        if (!$permission) {
+            $request->session()->flash('error_message', 'Permission not found.');
+            return redirect()->route('admin.viewPermissions');
+        }
+        return view('ceo.editPermission')
+            ->with('permission', $permission);
+    }
+
+    public function editPermissionSubmit(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $permission = Permission::find($id);
+
+        $permission->name = $request->name;
+        $permission->invoice_add = $request->invoice_add ? 1 : 0;
+        $permission->invoice_manage = $request->invoice_manage ? 1 : 0;
+        $permission->inventory_manage = $request->inventory_manage ? 1 : 0;
+        $permission->category_manage = $request->category_manage ? 1 : 0;
+        $permission->station_manage = $request->station_manage ? 1 : 0;
+        $permission->operation_manage = $request->operation_manage ? 1 : 0;
+        $permission->permission_mange = $request->permission_mange ? 1 : 0;
+
+        $permission->update();
+
+        $request->session()->flash('success_message', 'Permission updated successfully.');
+
+        return redirect()->back();
+    }
 }
