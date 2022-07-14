@@ -30,8 +30,10 @@ $page_title = 'View Permissions';
                         </td>
                         <td>
                             {{-- <a href="{{ route('admin.editUser', $user->id) }}" class="btn btn-primary">Edit</a> --}}
-                            <a href="{{ route('admin.editPermission', ['id' => $permission->id]) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ route('admin.deletePermission', ['id' => $permission->id]) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('admin.editPermission', ['id' => $permission->id]) }}"
+                                class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.deletePermission', ['id' => $permission->id]) }}" id="delete-btn"
+                                class="btn btn-danger delete-btn">Delete</a>
                         </td>
                     </tr>
                 @endforeach
