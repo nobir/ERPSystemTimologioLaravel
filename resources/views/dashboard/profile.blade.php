@@ -72,16 +72,18 @@ $page_title = 'Profile';
             </div>
         </li>
 
+        @if ($user->region || $user->branch)
         <li class="list-group-item">
             <div class="row">
                 <div class="col-md-3">
-                    <spna class="text-dark">Station</spna>
+                    <spna class="text-dark">{{ $user->region ? "Region" : "Branch" }}</spna>
                 </div>
                 <div class="col-md-9">
-                    <span class="text-dark">{{ $user->station->name }}</span>
+                    <span class="text-dark">{{ $user->region ? $user->region->name : $user->branch->name }}</span>
                 </div>
             </div>
         </li>
+        @endif
 
         <li class="list-group-item">
             <div class="row">

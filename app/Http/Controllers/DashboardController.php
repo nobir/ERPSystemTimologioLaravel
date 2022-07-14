@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Station;
 use App\Models\Permission;
+use App\Models\Region;
 use Illuminate\Support\Facades\Crypt;
 
 class DashboardController extends Controller
@@ -27,7 +29,6 @@ class DashboardController extends Controller
     {
         $user = User::where('id', $request->session()->get('user')->id)->first();
 
-        $stations = Station::all();
         $permissions = Permission::all();
 
         $user_types = [
@@ -40,7 +41,6 @@ class DashboardController extends Controller
         return view('dashboard.profileEdit')
             ->with('user', $user)
             ->with('user_types', $user_types)
-            ->with('stations', $stations)
             ->with('permissions', $permissions);
     }
 
@@ -63,7 +63,7 @@ class DashboardController extends Controller
                 $validation_rules,
                 [
                     // 'type' => 'required|numeric|min:0|max:4',
-                    'station_id' => 'required|numeric|exists:stations,id',
+                    // 'station_id' => 'required|numeric|exists:stations,id',
                     'permission_ids' => 'required|array|min:1|exists:permissions,id',
                 ]
             );
@@ -74,13 +74,6 @@ class DashboardController extends Controller
         $this->validate($request, $validation_rules);
 
         if ($user->type <= 1) {
-
-            $station = Station::find($request->station_id);
-
-            if (!$station) {
-                $request->session()->flash('error_message', 'Station not found.');
-                return redirect()->back();
-            }
 
             foreach ($request->permission_ids as $permission) {
                 if (!Permission::find($permission)) {
@@ -93,7 +86,6 @@ class DashboardController extends Controller
             // $user->type = $request->type;
             $user->hire_date = $request->hire_date;
             $user->salary = $request->salary;
-            $user->station_id = $station->id;
             $user->permissions()->detach();
             // return back();
             foreach ($request->permission_ids as $permission) {
