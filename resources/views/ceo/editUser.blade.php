@@ -175,7 +175,7 @@ $page_title = 'Edit User';
             <div class="d-none" id="hidden-permission-list">
                 <div class="col-sm-8 mb-2">
                     <select id="permission_ids"
-                        class="@error('permission_ids') is-invalid @enderror form-control {{ old('permission_ids') && !$errors->first('permission_ids') ? 'is-valid' : '' }}"
+                        class="form-control"
                         name="permission_ids[]">
                         <option value="">None</option>
                         @foreach ($permissions as $permission)

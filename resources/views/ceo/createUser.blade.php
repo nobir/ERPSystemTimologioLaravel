@@ -154,7 +154,7 @@ $page_title = 'Create User';
             <div class="d-none" id="hidden-permission-list">
                 <div class="col-sm-8 mb-2">
                     <select id="permission_ids"
-                        class="@error('permission_ids') is-invalid @enderror form-control {{ old('permission_ids') && !$errors->first('permission_ids') ? 'is-valid' : '' }}"
+                        class="form-control"
                         name="permission_ids[]">
                         <option value="">None</option>
                         @foreach ($permissions as $permission)
@@ -162,7 +162,7 @@ $page_title = 'Create User';
                         @endforeach
                     </select>
                 </div>
-                <div class="col-sm-4 mb-2 remove-btn-container p-0" id="remove-btn-container">
+                <div class="col-sm-4 mb-2 remove-btn-container" id="remove-btn-container">
                     <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
                         <i class="bi bi-dash-circle mr-2"></i>Remove
                     </a>
@@ -184,11 +184,6 @@ $page_title = 'Create User';
                             @endforeach
                         </select>
                     </div>
-                    {{-- <div class="col-sm-4 mb-2 d-none" id="remove-btn-container">
-                        <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
-                            <i class="bi bi-dash-circle mr-2"></i>Remove
-                        </a>
-                    </div> --}}
                 </div>
                 @error('permission_id')
                     <span class="invalid-feedback" role="alert">
