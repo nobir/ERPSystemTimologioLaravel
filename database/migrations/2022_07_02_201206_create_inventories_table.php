@@ -16,13 +16,13 @@ class CreateInventoriesTable extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('quantity')->nullable(false);
-            $table->unsignedBigInteger('station_id');
+            $table->unsignedBigInteger('branch_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
 
-            $table->foreign('station_id')
+            $table->foreign('branch_id')
                 ->references('id')
-                ->on('stations')
+                ->on('branches')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreign('category_id')

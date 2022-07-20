@@ -111,19 +111,39 @@ $page_title = 'Create User';
             </div>
         </div>
         <div class="row mb-3 has-validation">
-            <label for="station_id" class="col-sm-3 col-form-label">Station</label>
+            <label for="region_id" class="col-sm-3 col-form-label">Region</label>
             <div class="col-sm-9">
-                <select id="station_id"
-                    class="@error('station_id') is-invalid @enderror form-control {{ old('station_id') && !$errors->first('station_id') ? 'is-valid' : '' }}"
-                    name="station_id">
+                <select id="region_id"
+                    class="@error('region_id') is-invalid @enderror form-control {{ old('region_id') && !$errors->first('region_id') ? 'is-valid' : '' }}"
+                    name="region_id">
                     <option value="">None</option>
-                    @foreach ($stations as $station)
+                    @foreach ($regions as $region)
                         <option
-                            value="{{ $station->id }}"{{ old('station_id') && old('station_id') == $station->id ? ' selected' : '' }}>
-                            {{ $station->name }}</option>
+                            value="{{ $region->id }}"{{ old('region_id') && old('region_id') == $region->id ? ' selected' : '' }}>
+                            {{ $region->name }}</option>
                     @endforeach
                 </select>
-                @error('station_id')
+                @error('region_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+        <div class="row mb-3 has-validation">
+            <label for="branch_id" class="col-sm-3 col-form-label">Branch</label>
+            <div class="col-sm-9">
+                <select id="branch_id"
+                    class="@error('branch_id') is-invalid @enderror form-control {{ old('branch_id') && !$errors->first('branch_id') ? 'is-valid' : '' }}"
+                    name="branch_id">
+                    <option value="">None</option>
+                    @foreach ($branches as $branch)
+                        <option
+                            value="{{ $branch->id }}"{{ old('branch_id') && old('branch_id') == $branch->id ? ' selected' : '' }}>
+                            {{ $branch->name }}</option>
+                    @endforeach
+                </select>
+                @error('branch_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -134,7 +154,7 @@ $page_title = 'Create User';
             <div class="d-none" id="hidden-permission-list">
                 <div class="col-sm-8 mb-2">
                     <select id="permission_ids"
-                        class="@error('permission_ids') is-invalid @enderror form-control {{ old('permission_ids') && !$errors->first('permission_ids') ? 'is-valid' : '' }}"
+                        class="form-control"
                         name="permission_ids[]">
                         <option value="">None</option>
                         @foreach ($permissions as $permission)
@@ -142,7 +162,7 @@ $page_title = 'Create User';
                         @endforeach
                     </select>
                 </div>
-                <div class="col-sm-4 mb-2 remove-btn-container p-0" id="remove-btn-container">
+                <div class="col-sm-4 mb-2 remove-btn-container" id="remove-btn-container">
                     <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
                         <i class="bi bi-dash-circle mr-2"></i>Remove
                     </a>
@@ -164,11 +184,6 @@ $page_title = 'Create User';
                             @endforeach
                         </select>
                     </div>
-                    {{-- <div class="col-sm-4 mb-2 d-none" id="remove-btn-container">
-                        <a id="permission-remove-btn" href="#" class="btn btn-danger permission-remove-btn">
-                            <i class="bi bi-dash-circle mr-2"></i>Remove
-                        </a>
-                    </div> --}}
                 </div>
                 @error('permission_id')
                     <span class="invalid-feedback" role="alert">

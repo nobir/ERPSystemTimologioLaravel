@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Mail\MailVerifyLinkSender;
 use App\Models\Address;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Permission;
+use App\Models\Region;
 use App\Models\Station;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\RequiredIf;
 
 class AdminController extends Controller
 {
@@ -27,7 +30,7 @@ class AdminController extends Controller
             ->with('users', $users);
     }
 
-    public function ViewUnverifiedUsers(Request $request)
+    public function viewUnverifiedUsers(Request $request)
     {
         $users = User::where('verified', 0)->paginate(5);
 
@@ -171,7 +174,8 @@ class AdminController extends Controller
 
     public function createUser(Request $request)
     {
-        $stations = Station::all();
+        $branches = Branch::all();
+        $regions = Region::all();
         $permissions = Permission::all();
 
         $user_types = [
@@ -184,7 +188,8 @@ class AdminController extends Controller
 
         return view('ceo.createUser')
             ->with('user_types', $user_types)
-            ->with('stations', $stations)
+            ->with('branches', $branches)
+            ->with('regions', $regions)
             ->with('permissions', $permissions);
     }
 
@@ -204,17 +209,24 @@ class AdminController extends Controller
                 'hire_date' => 'required|date|date_format:Y-m-d',
                 'type' => 'required|numeric|min:0|max:4',
                 'salary' => 'required|numeric|min:0',
-                'station_id' => 'required|numeric|exists:stations,id',
+                'region_id' => 'required_if:type,==,2',
+                'branch_id' => new RequiredIf($request->type >= 3),
                 'permission_ids' => 'required|array|exists:permissions,id',
             ]
         );
 
         // return $request->input();
 
-        $station = Station::find($request->station_id);
+        $region = Region::find($request->region_id);
 
-        if (!$station) {
-            $request->session()->flash('error_message', 'Station not found.');
+        if ($request->branch_id) {
+            $branch = Branch::find($request->branch_id);
+        } else {
+            $branch = null;
+        }
+
+        if ($branch != null && $region->id != $branch->region->id) {
+            $request->session()->flash('error_message', 'Branch is not under this region.');
             return redirect()->back();
         }
 
@@ -248,7 +260,13 @@ class AdminController extends Controller
         $user->salary = $request->salary;
         $user->hire_date = $request->hire_date;
         $user->address_id = $address->id;
-        $user->station_id = $station->id;
+
+        if ($branch == null) {
+            $user->region_id = $request->region_id;
+        }
+
+        $user->branch_id = $request->branch_id;
+
         $user->save();
 
         foreach ($request->permission_ids as $permission) {
@@ -276,6 +294,8 @@ class AdminController extends Controller
 
     public function editUser(Request $request, $id)
     {
+        $branches = Branch::all();
+        $regions = Region::all();
         $user = User::find($id);
 
         if (!$user) {
@@ -283,7 +303,6 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
-        $stations = Station::all();
         $permissions = Permission::all();
 
         $user_types = [
@@ -297,7 +316,8 @@ class AdminController extends Controller
         return view('ceo.editUser')
             ->with('user', $user)
             ->with('user_types', $user_types)
-            ->with('stations', $stations)
+            ->with('branches', $branches)
+            ->with('regions', $regions)
             ->with('permissions', $permissions);
     }
 
@@ -319,15 +339,22 @@ class AdminController extends Controller
                 'hire_date' => 'required|date|date_format:Y-m-d',
                 'type' => 'required|numeric|min:0|max:4',
                 'salary' => 'required|numeric|min:0',
-                'station_id' => 'required|numeric|exists:stations,id',
+                'region_id' => 'required_if:type,==,2',
+                'branch_id' => new RequiredIf($request->type >= 3),
                 'permission_ids' => 'required|array|min:1|exists:permissions,id',
             ]
         );
 
-        $station = Station::find($request->station_id);
+        $region = Region::find($request->region_id);
 
-        if (!$station) {
-            $request->session()->flash('error_message', 'Station not found.');
+        if ($request->branch_id) {
+            $branch = Branch::find($request->branch_id);
+        } else {
+            $branch = null;
+        }
+
+        if ($branch != null && $region != null && $region->id != $branch->region->id) {
+            $request->session()->flash('error_message', 'Branch is not under this region.');
             return redirect()->back();
         }
 
@@ -360,9 +387,13 @@ class AdminController extends Controller
         $user->address->country = $request->country;
         $user->address->zip_code = $request->zip_code;
         $user->address->update();
-        $user->station_id = $station->id;
-        $user->update();
 
+        if ($branch == null) {
+            $user->region_id = $request->region_id;
+        }
+
+        $user->branch_id = $request->branch_id;
+        $user->update();
 
         $user->permissions()->detach();
         // return back();
@@ -416,5 +447,101 @@ class AdminController extends Controller
         $request->session()->flash('success_message', "User deleted successfully.");
 
         return redirect()->back();
+    }
+
+    public function createPermission(Request $request)
+    {
+        return view('ceo.createPermission');
+    }
+
+    public function viewPermissions(Request $request)
+    {
+        $permissions = Permission::paginate(5);
+
+        return view('ceo.viewPermissions')
+            ->with('permissions', $permissions);
+    }
+
+    public function createPermissionSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $permission = new Permission();
+
+        $permission->name = $request->name;
+        $permission->invoice_add = $request->invoice_add ? 1 : 0;
+        $permission->invoice_manage = $request->invoice_manage ? 1 : 0;
+        $permission->inventory_manage = $request->inventory_manage ? 1 : 0;
+        $permission->category_manage = $request->category_manage ? 1 : 0;
+        $permission->station_manage = $request->station_manage ? 1 : 0;
+        $permission->operation_manage = $request->operation_manage ? 1 : 0;
+        $permission->permission_mange = $request->permission_mange ? 1 : 0;
+        $permission->save();
+
+        $request->session()->flash('success_message', "Permission created successfully.");
+
+        return redirect()->back();
+    }
+
+    public function editPermission(Request $request, $id)
+    {
+        $permission = Permission::find($id);
+
+        if (!$permission) {
+            $request->session()->flash('error_message', 'Permission not found.');
+            return redirect()->route('admin.viewPermissions');
+        }
+        return view('ceo.editPermission')
+            ->with('permission', $permission);
+    }
+
+    public function editPermissionSubmit(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $permission = Permission::find($id);
+
+        $permission->name = $request->name;
+        $permission->invoice_add = $request->invoice_add ? 1 : 0;
+        $permission->invoice_manage = $request->invoice_manage ? 1 : 0;
+        $permission->inventory_manage = $request->inventory_manage ? 1 : 0;
+        $permission->category_manage = $request->category_manage ? 1 : 0;
+        $permission->station_manage = $request->station_manage ? 1 : 0;
+        $permission->operation_manage = $request->operation_manage ? 1 : 0;
+        $permission->permission_mange = $request->permission_mange ? 1 : 0;
+
+        $permission->update();
+
+        $request->session()->flash('success_message', 'Permission updated successfully.');
+
+        return redirect()->back();
+    }
+
+    public function deletePermission(Request $request, $id)
+    {
+        $request->merge(['id' => $id]);
+
+        $this->validate($request, [
+            'id' => 'required|exists:permissions,id',
+        ]);
+
+        $permission = Permission::find($id);
+
+        foreach ($permission->users as $user) {
+            $user->permissions()->detach($permission->id);
+        }
+
+        $permission->delete();
+
+        if (!$permission) {
+            $request->session()->flash('error_message', 'Permission not found.');
+            return redirect()->route('admin.viewPermissions');
+        }
+
+        return redirect()->route('admin.viewPermissions');
     }
 }

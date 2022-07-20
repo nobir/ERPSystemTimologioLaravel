@@ -18,17 +18,11 @@ class CreateWorkPostsTable extends Migration
             $table->date('joining_date')->nullable(false);
             $table->date('leave_date')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('station_id');
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->foreign('station_id')
-                ->references('id')
-                ->on('stations')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
         });

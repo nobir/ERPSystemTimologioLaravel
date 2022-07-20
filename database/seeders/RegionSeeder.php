@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Station;
+use App\Models\Region;
 
-class StationSeeder extends Seeder
+class RegionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class StationSeeder extends Seeder
      */
     public function run()
     {
-        Station::factory()->count(10)->create();
+        Region::factory()->count(10)->create();
     }
 }

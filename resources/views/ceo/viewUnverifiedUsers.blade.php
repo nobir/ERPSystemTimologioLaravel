@@ -81,7 +81,7 @@ $page_title = 'View Unverified Users';
                         <td>{{ $user->salary }}</td>
                         <td>{{ $user->hire_date }}</td>
                         <td>{{ $user->address->local_address }}, {{ $user->address->police_station }}, {{ $user->address->city }}, {{ $user->address->country }}, {{ $user->address->zip_code }}</td>
-                        <td>{{ $user->station->name }}</td>
+                        <td>{{ $user->branch ? $user->branch->name : ($user->region ? $user->region->name : "") }}</td>
                         <td>@foreach ($user->permissions as $permission)
                             {{ $permission->name }},
                         @endforeach</td>

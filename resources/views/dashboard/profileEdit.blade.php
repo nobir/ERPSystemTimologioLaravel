@@ -101,26 +101,6 @@ $page_title = 'Edit';
                 </div>
             </div>
             <div class="row mb-3 has-validation">
-                <label for="station_id" class="col-sm-3 col-form-label">Station</label>
-                <div class="col-sm-9">
-                    <select id="station_id"
-                        class="@error('station_id') is-invalid @enderror form-control {{ old('station_id') && !$errors->first('station_id') ? 'is-valid' : '' }}"
-                        name="station_id">
-                        <option value="">None</option>
-                        @foreach ($stations as $station)
-                            <option
-                                value="{{ $station->id }}"{{ $user->station_id == $station->id ? ' selected' : '' }}>
-                                {{ $station->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('station_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-            <div class="row mb-3 has-validation">
                 <div class="d-none" id="hidden-permission-list">
                     <div class="col-sm-8 mb-2">
                         <select id="permission_ids"

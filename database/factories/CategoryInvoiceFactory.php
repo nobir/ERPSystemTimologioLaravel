@@ -16,6 +16,7 @@ class CategoryInvoiceFactory extends Factory
         // 'category_id'
         // 'invoice_id'
         return [
+            'quantity' => random_int(1, 20),
             'category_id' => $this->faker->numberBetween(1, 50),
             'invoice_id' => $this->faker->numberBetween(1, 2000),
         ];

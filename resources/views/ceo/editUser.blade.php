@@ -112,7 +112,7 @@ $page_title = 'Edit User';
                 @enderror
             </div>
         </div>
-        <div class="row mb-3 has-validation">
+        {{-- <div class="row mb-3 has-validation">
             <label for="station_id" class="col-sm-3 col-form-label">Station</label>
             <div class="col-sm-9">
                 <select id="station_id"
@@ -130,12 +130,52 @@ $page_title = 'Edit User';
                     </span>
                 @enderror
             </div>
+        </div> --}}
+        <div class="row mb-3 has-validation">
+            <label for="region_id" class="col-sm-3 col-form-label">Region</label>
+            <div class="col-sm-9">
+                <select {{ $user->type >= 3 ? "readonly" : "" }} id="region_id"
+                    class="@error('region_id') is-invalid @enderror form-control {{ old('region_id') && !$errors->first('region_id') ? 'is-valid' : '' }}"
+                    name="region_id">
+                    <option value="">None</option>
+                    @foreach ($regions as $region)
+                        <option
+                            value="{{ $region->id }}"{{ $user->region_id == $region->id ? ' selected' : '' }}>
+                            {{ $region->name }}</option>
+                    @endforeach
+                </select>
+                @error('region_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+        <div class="row mb-3 has-validation">
+            <label for="branch_id" class="col-sm-3 col-form-label">Branch</label>
+            <div class="col-sm-9">
+                <select id="branch_id"
+                    class="@error('branch_id') is-invalid @enderror form-control {{ old('branch_id') && !$errors->first('branch_id') ? 'is-valid' : '' }}"
+                    name="branch_id">
+                    <option value="">None</option>
+                    @foreach ($branches as $branch)
+                        <option
+                            value="{{ $branch->id }}"{{ $user->branch_id == $branch->id ? ' selected' : '' }}>
+                            {{ $branch->name }}</option>
+                    @endforeach
+                </select>
+                @error('branch_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
         </div>
         <div class="row mb-3 has-validation">
             <div class="d-none" id="hidden-permission-list">
                 <div class="col-sm-8 mb-2">
                     <select id="permission_ids"
-                        class="@error('permission_ids') is-invalid @enderror form-control {{ old('permission_ids') && !$errors->first('permission_ids') ? 'is-valid' : '' }}"
+                        class="form-control"
                         name="permission_ids[]">
                         <option value="">None</option>
                         @foreach ($permissions as $permission)

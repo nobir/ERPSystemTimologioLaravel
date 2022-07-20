@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Invoice;
-use App\Models\Inventory;
+use App\Models\Region;
+use App\Models\User;
 
-class Category extends Model
+class Branch extends Model
 {
     use HasFactory;
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 
     public function inventories()
     {

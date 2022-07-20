@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +17,8 @@ class DatabaseSeeder extends Seeder
             AddressSeeder::class,
             CategorySeeder::class,
             CustomerSeeder::class,
-            StationSeeder::class,
+            RegionSeeder::class,
+            BranchSeeder::class,
             UserSeeder::class,
             InventorySeeder::class,
             InvoiceSeeder::class,

@@ -8,12 +8,13 @@ use App\Models\Address;
 use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Category;
+use App\Models\Region;
 use App\Models\Station;
 
 class TestController extends Controller
 {
     public function index()
     {
-        return Invoice::find(23)->categories;
+        return Region::find(10)->branches;
     }
 }

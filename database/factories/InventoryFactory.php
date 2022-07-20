@@ -15,7 +15,7 @@ class InventoryFactory extends Factory
     {
         return [
             'quantity' => random_int(1, 100),
-            'station_id' => random_int(1, 10),
+            'branch_id' => random_int(1, 50),
             'category_id' => random_int(1, 50),
         ];
     }

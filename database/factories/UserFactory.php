@@ -14,6 +14,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $region_id = (random_int(1, 20) == 7 | random_int(1, 20) == 9 | random_int(1, 20) == 13 | random_int(1, 20) == 19) ? $this->faker->numberBetween(1, 10) : null;
+        $branch_id = $this->faker->numberBetween(1, 50);
+
+        if ($region_id != null) {
+            $branch_id = null;
+        } else {
+            $region_id = null;
+        }
+
         return [
             'verified' => random_int(0, 1),
             'verify_email' => -1,
@@ -23,10 +32,11 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => Crypt::encrypt('password'),
-            'salary' => $this->faker->randomFloat(2, 0, 100000),
+            'salary' => $this->faker->randomFloat(2, 10000, 100000),
             'hire_date' => $this->faker->dateTimeBetween('-10 years', 'now'),
-            'address_id' => $this->faker->unique()->numberBetween(101, 200),
-            'station_id' => $this->faker->numberBetween(1, 10),
+            'address_id' => $this->faker->unique()->numberBetween(61, 160),
+            'region_id' => $region_id,
+            'branch_id' => $branch_id,
         ];
     }
 }
