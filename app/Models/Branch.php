@@ -11,6 +11,11 @@ class Branch extends Model
 {
     use HasFactory;
 
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
     public function region()
     {
         return $this->belongsTo(Region::class);
