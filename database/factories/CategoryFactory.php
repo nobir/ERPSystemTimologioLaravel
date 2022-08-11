@@ -16,7 +16,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $this->faker->name,
             'details' => $this->faker->text,
-            'size' => $this->faker->randomDigit(2, 0, 100),
+            // 'size' => $this->faker->randomDigit(2, 0, 100),
             'cost_price' => $this->faker->randomFloat(2, 0, 100000),
             'sell_price' => $this->faker->randomFloat(2, 0, 100000),
             'discount' => $this->faker->randomFloat(2, 0, 100),

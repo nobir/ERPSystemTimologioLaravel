@@ -16,7 +16,7 @@ class InventoryFactory extends Factory
         return [
             'quantity' => random_int(1, 100),
             'branch_id' => random_int(1, 50),
-            'category_id' => random_int(1, 50),
+            'category_id' => $this->faker->numberBetween(1, 50),
         ];
     }
 }

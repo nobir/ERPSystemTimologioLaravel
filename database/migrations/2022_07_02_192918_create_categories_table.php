@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->string('details')->nullable(false);
-            $table->unsignedInteger('size')->nullable(false);
+            // $table->unsignedInteger('size')->nullable(false);
             $table->unsignedDouble('cost_price')->nullable(false);
             $table->unsignedDouble('sell_price')->nullable(false);
             $table->unsignedDouble('discount')->default(0)->nullable(false);

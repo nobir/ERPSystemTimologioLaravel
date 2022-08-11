@@ -15,7 +15,7 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('quantity')->nullable(false);
+            $table->unsignedInteger('quantity')->default(0)->nullable(false);
             $table->unsignedBigInteger('branch_id');
             $table->unsignedBigInteger('category_id');
             $table->timestamps();

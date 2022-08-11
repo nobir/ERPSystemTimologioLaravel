@@ -15,9 +15,9 @@ class CreateCategoryInvoiceTable extends Migration
     {
         Schema::create('category_invoice', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('quantity')->nullable(false);
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('invoice_id');
+            $table->unsignedInteger('quantity')->default(1)->nullable(false);
             $table->timestamps();
 
             $table->foreign('category_id')

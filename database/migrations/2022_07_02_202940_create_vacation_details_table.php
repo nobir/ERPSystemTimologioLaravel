@@ -15,6 +15,7 @@ class CreateVacationDetailsTable extends Migration
     {
         Schema::create('vacation_details', function (Blueprint $table) {
             $table->id();
+            $table->integer('verified')->default(0)->nullable(false);
             $table->string('reason')->nullable(false);
             $table->date('start_date')->nullable(false);
             $table->date('end_date')->nullable(false);

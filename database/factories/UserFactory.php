@@ -14,20 +14,28 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $region_id = (random_int(1, 20) == 7 | random_int(1, 20) == 9 | random_int(1, 20) == 13 | random_int(1, 20) == 19) ? $this->faker->numberBetween(1, 10) : null;
-        $branch_id = $this->faker->numberBetween(1, 50);
+        $type_id = random_int(0, 4);
+        $region_id = null;
+        $branch_id = null;
 
-        if ($region_id != null) {
+        if ($type_id <= 1) {
+            $region_id = null;
             $branch_id = null;
+        } elseif ($type_id == 2) {
+            $region_id = random_int(1, 10);
+        } elseif ($type_id >= 3) {
+            $branch_id = random_int(1, 50);
         } else {
             $region_id = null;
+            $branch_id = null;
         }
+
 
         return [
             'verified' => random_int(0, 1),
             'verify_email' => -1,
             'username' => $this->faker->unique()->userName(),
-            'type' => random_int(0, 4),
+            'type' => $type_id,
             'status' => random_int(0, 1),
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),

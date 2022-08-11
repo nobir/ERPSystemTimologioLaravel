@@ -13,9 +13,20 @@ class PaymentFactory extends Factory
      */
     public function definition()
     {
+        $issue = $this->faker->dateTimeBetween('-1 year', 'now');
+        $receive = $this->faker->dateTimeBetween('-1 year', 'now');
+
+        while (true) {
+            if ($issue >= $receive) {
+                break;
+            }
+
+            $receive = $this->faker->dateTimeBetween('-1 year', 'now');
+        }
+
         return [
-            'issue_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'receive_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'issue_date' => $issue,
+            'receive_date' => $receive,
             'bonus' => $this->faker->randomFloat(2, 0, 100),
             'user_id' => random_int(1, 100),
         ];

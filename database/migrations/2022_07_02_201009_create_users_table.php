@@ -24,9 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable(false);
             $table->string('password')->nullable(false);
             $table->unsignedDouble('salary')->nullable();
-            $table->dateTime('hire_date')->nullable();
+            $table->date('hire_date')->nullable();
             $table->string('avatar')->nullable();
-            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('address_id')->unique();
             $table->unsignedBigInteger('region_id')->nullable();
             $table->unsignedBigInteger('branch_id')->nullable();
             $table->timestamps();

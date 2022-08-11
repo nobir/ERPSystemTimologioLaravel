@@ -14,9 +14,9 @@ class BranchFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name . " Branch",
-            'region_id' => random_int(1, 10),
-            'address_id' => random_int(11, 100),
+            'name' => $this->faker->unique()->name() . " Branch",
+            'region_id' => $this->faker->numberBetween(1, 10), // random_int(1, 10),
+            'address_id' => $this->faker->unique()->numberBetween(11, 60), //random_int(11, 100),
         ];
     }
 }

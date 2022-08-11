@@ -13,10 +13,22 @@ class VacationDetailFactory extends Factory
      */
     public function definition()
     {
+        $start = $this->faker->dateTimeBetween('-2 year', '-1 year');
+        $end = $this->faker->dateTimeBetween('-2 year', '-1 year');
+
+        while (true) {
+            if ($start >= $end) {
+                break;
+            }
+
+            $end = $this->faker->dateTimeBetween('-2 year', '-1 year');
+        }
+
         return [
+            'verified' => random_int(0, 1),
             'reason' => $this->faker->sentence,
-            'start_date' => $this->faker->dateTimeBetween('-2 year', '-1 year'),
-            'end_date' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'start_date' => $start,
+            'end_date' => $end,
             'user_id' => random_int(1, 100),
         ];
     }

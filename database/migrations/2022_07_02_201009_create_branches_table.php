@@ -17,7 +17,7 @@ class CreateBranchesTable extends Migration
             $table->id();
             $table->string('name')->unique()->nullable(false);
             $table->unsignedBigInteger('region_id');
-            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('address_id')->unique();
             $table->timestamps();
 
             $table->foreign('address_id')

@@ -13,10 +13,21 @@ class WorkingHourFactory extends Factory
      */
     public function definition()
     {
+        $entry = $this->faker->time();
+        $exit = $this->faker->time();
+
+        while (true) {
+            if ($entry >= $exit) {
+                break;
+            }
+
+            $exit = $this->faker->time();
+        }
+
         return [
             'date' => $this->faker->dateTimeBetween('-2 year', 'now'),
-            'entry_time' => $this->faker->time,
-            'exit_time' => $this->faker->time,
+            'entry_time' => $entry,
+            'exit_time' => $exit,
             'user_id' => random_int(1, 100),
         ];
     }
