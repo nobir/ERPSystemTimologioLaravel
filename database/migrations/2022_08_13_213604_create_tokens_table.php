@@ -17,7 +17,7 @@ class CreateTokensTable extends Migration
             $table->id();
             $table->string('token', 64)->nullable(false);
             $table->dateTime('created_at');
-            $table->dateTime("expired_at");
+            $table->dateTime("expired_at")->nullable();
             $table->unsignedBigInteger("user_id");
 
             $table->foreign('user_id')
