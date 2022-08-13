@@ -26,6 +26,11 @@ class User extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function token()
+    {
+        return $this->belongsTo(Token::class);
+    }
+
     public function region()
     {
         return $this->belongsTo(Region::class);
