@@ -13,10 +13,13 @@ use App\Models\Address;
 use App\Models\Payment;
 use App\Models\Region;
 use App\Models\Branch;
+use App\Models\Token;
 
 class User extends Model
 {
     use HasFactory;
+
+    protected $hidden = ['password'];
 
     public function address()
     {
