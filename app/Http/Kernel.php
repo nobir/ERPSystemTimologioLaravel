@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'notloggedin' => \App\Http\Middleware\NotLoggedIn::class,
         'isadminuser' => \App\Http\Middleware\IsAdminUser::class,
         'ismanageruser' => \App\Http\Middleware\IsManagerUser::class,
+        'isauthuserapi' => \App\Http\Middleware\IsAuthUserApi::class,
     ];
 }
