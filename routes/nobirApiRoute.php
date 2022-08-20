@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\TestController;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(TestController::class)->middleware("isauthuserapi")->group(function () {
+Route::controller(TestController::class)->group(function () {
     Route::post('/test', 'index')->name('test');
 });
 
@@ -17,5 +17,11 @@ Route::controller(HomeController::class)->group(function () {
         ->whereNumber(['user_id', 'code']);
 });
 
-Route::controller(DashboardController::class)->group(function () {
-});
+
+
+Route::controller(DashboardController::class)
+    ->prefix('dashboard')
+    ->middleware('isauthuserapi')
+    ->group(function () {
+        Route::post('/profile', 'profile')->name('api.dashboard.profile');
+    });
