@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+require_once(dirname(__FILE__) . "/nobirApiRoute.php");
+require_once(dirname(__FILE__) . "/sajjadApiRoute.php");
+// require_once(dirname(__FILE__) . "/jannatulApiRoute.php");
+// require_once(dirname(__FILE__) . "/tareqApiRoute.php");
