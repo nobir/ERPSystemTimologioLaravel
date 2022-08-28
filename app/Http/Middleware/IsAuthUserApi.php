@@ -20,7 +20,10 @@ class IsAuthUserApi
     public function handle(Request $request, Closure $next)
     {
         $validation = Validator::make(
-            $request->all(),
+            [
+                'auth_id' => $request->header('auth_id'),
+                'token' => $request->header('authorized')
+            ],
             [
                 'auth_id' => 'required|numeric|exists:users,id',
                 'token' => 'required|max:64'
@@ -31,8 +34,8 @@ class IsAuthUserApi
             return response()->json(["error_list" => $validation->errors()], 422);
         }
 
-        $token = Token::where('token', $request->token)
-            ->where('user_id', $request->auth_id)
+        $token = Token::where('token', $request->header('authorized'))
+            ->where('user_id', $request->header('auth_id'))
             ->whereNull("expired_at")->first();
 
         if ($token == null) {
