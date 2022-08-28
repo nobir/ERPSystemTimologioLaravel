@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Inventory::class);
     }
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class);
+    }
 }
