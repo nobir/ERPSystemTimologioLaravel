@@ -52,6 +52,7 @@ class HomeController extends Controller
         }
 
         $user->status = 1;
+        $user->save();
 
         $working_hour = new WorkingHour();
 
@@ -74,25 +75,14 @@ class HomeController extends Controller
 
     public function logout(Request $request)
     {
-        $validation = Validator::make(
-            $request->all(),
-            [
-                'auth_id' => 'required|numeric|exists:users,id',
-            ]
-        );
-
-        if ($validation->fails()) {
-            return response()->json(["error_list" => $validation->errors()], 422);
-        }
-
-        // return response()->json(["success_message" => "Successfully logout"]);
-
-        User::where('id', $request->auth_id)
+        User::where('id', $request->header('auth_id'))
             ->update(['status' => 0]);
-        WorkingHour::where('user_id', $request->id)
+        WorkingHour::where('user_id', $request->header('auth_id'))
             ->where('exit_time', null)
             ->update(['exit_time' => now()]);
-        Token::where('token', $request->token)->where('user_id', $request->id)
+        Token::where('token', $request->header('authorized'))
+            ->where('user_id', $request->header('auth_id'))
+            ->whereNull('expired_at')
             ->update(['expired_at' => date('d-m-y h:i:s')]);
 
         return response()->json(["success_message" => "Successfully logout"]);
