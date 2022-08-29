@@ -442,7 +442,7 @@ class AdminController extends Controller
         $request->merge(['id' => $id]);
 
         $validation = validator::make($request->all(), [
-            'id' => 'required|exists:permissions,id',
+            'id' => 'required|exists:users,id',
         ]);
 
         if ($validation->fails()) {
